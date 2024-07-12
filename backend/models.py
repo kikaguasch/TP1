@@ -16,6 +16,7 @@ class Book(db.Model):
     amnt_pages = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, default=datetime.datetime.now())
     finished_date = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -23,7 +24,7 @@ class User(db.Model):
     name = db.Column(db.String(255), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     favourite_genre = db.Column(db.String(255), nullable=False)
-    books = db.relationship("Book")
+    books = db.relationship("Book", backref="user", lazy=True)
 
 class Shelf_Type(db.Model):
     __tablename__ = 'shelf_types'
