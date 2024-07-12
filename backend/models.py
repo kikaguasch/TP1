@@ -29,3 +29,9 @@ class Shelf_Type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(255), nullable=False)
     books = db.relationship("Book", backref="shelf_type", lazy=True)
+
+class Book_Image(db.Model):
+    __tablename__ = 'book_images'
+    id = db.Column(db.Integer, primary_key=True)
+    book_name = db.Column(db.String(255), nullable=False)
+    cover_url = db.Column(db.String(255), nullable=False)

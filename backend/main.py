@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from models import db, User, Book, Shelf_Type
+from models import db, User, Book, Shelf_Type, Book_Image
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -9,8 +9,6 @@ CORS(app)
 port = 5000
 app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql+psycopg2://federica:2308@localhost:5432/books'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-
-# db = SQLAlchemy(app)
 
 @app.route("/")
 def home():
@@ -91,7 +89,7 @@ def user_libraries(user_id):
                 'books': []
             }
             books = Book.query.filter_by(user_id=user_id, shelf_id=shelf_type.id).all()
-            for book in books: 
+            for book, cover_url in books: 
                 book_data = {
                     'id': book.id,
                     'title': book.title,
@@ -99,7 +97,8 @@ def user_libraries(user_id):
                     'user_rating': book.user_rating,
                     'amnt_pages': book.amnt_pages,
                     'date_added': book.date_added.isoformat(),
-                    'finished_date': book.finished_date.isoformat() if book.finished_date else None
+                    'finished_date': book.finished_date.isoformat() if book.finished_date else None,
+                    'cover_url': cover_url
                 }
                 shelf_data['books'].append(book_data)
                 shelves_data.append(shelf_data)
@@ -127,6 +126,9 @@ def new_book(user_id, shelf_id):
         )
         db.session.add(new_book)
         db.session.commit()
+
+        cover_url = data.get('cover_url')
+
         return jsonify({'message': 'Book created successfully'}), 201
     except:
         return jsonify({'message': 'Book could not be created'}), 400
@@ -148,6 +150,18 @@ def update_book(user_id, shelf_id, book_id):
         book.shelf_id = data.get('shelf_id')
         book.user_id = data.get('user_id')
         db.session.commit()
+
+        cover_url = db.session.query(Book_Image.cover_url).filter(Book_Image.book_name == book.title).first()
+        book_data = {
+            'id': book.id,
+            'title': book.title,
+            'author_name': book.author_name,
+            'user_rating': book.user_rating,
+            'amnt_pages': book.amnt_pages,
+            'date_added': book.date_added.isoformat(),
+            'finished_date': book.finished_date.isoformat() if book.finished_date else None,
+            'cover_url': cover_url
+        }
         return jsonify({'message': 'Book updated successfully'}), 200
     except:
         return jsonify({'message': 'Book could not be updated'}), 400
