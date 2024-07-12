@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from models import db, User, Book, Shelf_Type
-from datetime import datetime, timedelta
-from sqlalchemy.orm import scoped_session, sessionmaker 
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -10,6 +9,8 @@ CORS(app)
 port = 5000
 app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql+psycopg2://federica:2308@localhost:5432/books'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+
+db = SQLAlchemy(app)
 
 @app.route("/")
 def home():
