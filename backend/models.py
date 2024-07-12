@@ -7,14 +7,13 @@ db = SQLAlchemy()
 class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
-    cover = db.Column
     author_name = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     user_rating = db.Column(db.Float, nullable=False)
-    shelf = db.Column(db.String(255), nullable=False)
+    shelf_id = db.Column(db.Integer, db.ForeignKey('shelf_types.id'), nullable=False)
     amnt_pages = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, default=datetime.datetime.now())
-    finished_date = db.Column(db.DateTime)
+    finished_date = db.Column(db.DateTime, default=None)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 class User(db.Model):
@@ -29,4 +28,4 @@ class Shelf_Type(db.Model):
     __tablename__ = 'shelf_types'
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(255), nullable=False)
-    books = db.relationship("Book")
+    books = db.relationship("Book", backref="shelf_type", lazy=True)
