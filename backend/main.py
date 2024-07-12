@@ -88,7 +88,6 @@ def user_libraries(user_id):
                 book_data = {
                     'id': book.id,
                     'cover': book.cover,
-                    'isbn': book.isbn,
                     'title': book.title,
                     'user_rating': book.user_rating,
                     'amnt_pages': book.cant_pages,
@@ -110,21 +109,32 @@ def new_book(user_id, shelf_id):
         if not shelf:
             return jsonify({'message': 'Shelf could not be found'}), 404
         data = request.json
-        book = Book(cover=data.get('cover'), isbn=data.get('isbn'), title=data.get('title'), user_rating=data.get('user_rating'), cant_pages=data.get('cant_pages'), date_added=datetime.now(), finished_date=data.get('finished_date'), author_name=data.get('author_name'), shelf=shelf)
+        new_book = Book(
+            cover=data.get('cover'), 
+            title=data.get('title'), 
+            user_rating=data.get('user_rating'), 
+            cant_pages=data.get('cant_pages'), 
+            date_added=datetime.now(), 
+            finished_date=data.get('finished_date'), 
+            author_name=data.get('author_name'), 
+            shelf=shelf.type,
+            user_id=user_id
+        )
         db.session.add(new_book)
         db.session.commit()
+
+
 
         book_data = {
             'id': new_book.id,
             'cover': new_book.cover,
-            'isbn': new_book.isbn,
             'title': new_book.title,
             'user_rating': new_book.user_rating,
             'cant_pages': new_book.cant_pages,
             'date_added': new_book.date_added.isoformat(),
             'finished_date': new_book.finished_date.isoformat() if new_book.finished_date else None,
             'author_name': new_book.author_name,
-            'shelf': new_book.shelf_id
+            'shelf': new_book.shelf_id,
         }
 
     except:
@@ -139,12 +149,11 @@ def update_book(user_id, shelf_id, book_id):
             return jsonify({'message': 'Book could not be found'}), 404
         data = request.json
         book.cover = data.get('cover')
-        book.isbn = data.get('isbn')
         book.title = data.get('title')
         book.user_rating = data.get('user_rating')
         book.cant_pages = data.get('cant_pages')
-        book.date_added = data.get('date_added').isoformat()
-        book.finished_date = data.get('finished_date').isoformat() if new_book.finished_date else None,
+        book.date_added = datetime.fromisoformat(data.get('date_added'))
+        book.finished_date = datetime.fromisoformat(data.get('date_finished')) if data.get('finished_date') else None,
         book.author_name = data.get('author_name')
         book.shelf_id = data.get('shelf_id')
         db.session.commit()
@@ -157,6 +166,8 @@ def update_book(user_id, shelf_id, book_id):
 def delete_book(iser_id, shelf_id, book_id):
     try:
         book = Book.query.get(book_id)
+        if not book:
+            return jsonify({'message': 'Book could not be found'}), 404
         db.session.delete(book)
         db.session.commit()
         return jsonify({'message':'Book deleted successfully'}), 200

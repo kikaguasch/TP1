@@ -8,7 +8,6 @@ class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
     cover = db.Column
-    isbn = db.Column(db.String(255), nullable=False)
     author_name = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     user_rating = db.Column(db.Float, nullable=False)
