@@ -164,7 +164,7 @@ def update_book(user_id, shelf_id, book_id):
                 new_cover = Book_Image(book_name=book.title, cover_url=cover_url)
                 db.session.add(new_cover)
             db.session.commit()
-        cover_url = db.session.query(Book_Image.cover_url).filter_by(book_name=book.title).first()[0]   
+        cover_url = db.session.query(Book_Image.cover_url).filter(Book_Image.book_name == book.title).first()
         book_data = {
             'id': book.id,
             'title': book.title,
