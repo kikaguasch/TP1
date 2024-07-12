@@ -11,7 +11,7 @@ class Book(db.Model):
     isbn = db.Column(db.String(255), nullable=False)
     author_name = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
-    user_rating = db.Column(db.Real, nullable=False)
+    user_rating = db.Column(db.Float, nullable=False)
     shelf = db.Column(db.String(255), nullable=False)
     amnt_pages = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, default=datetime.datetime.now())
