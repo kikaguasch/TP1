@@ -10,7 +10,7 @@ port = 5000
 app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql+psycopg2://federica:2308@localhost:5432/books'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 @app.route("/")
 def home():

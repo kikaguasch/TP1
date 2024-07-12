@@ -9,7 +9,7 @@ class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author_name = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
-    user_rating = db.Column(db.Float, nullable=False)
+    user_rating = db.Column(db.Float, nullable=False, default=0)
     shelf_id = db.Column(db.Integer, db.ForeignKey('shelf_types.id'), nullable=False)
     amnt_pages = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, default=datetime.datetime.now())
