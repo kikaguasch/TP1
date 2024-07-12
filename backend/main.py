@@ -16,8 +16,7 @@ def home():
     return """
     <html>
     <body>
-    <h1>Welcome to our library API</h1>
-    <a href="/books">Go to all libraries</a>
+    <h1>Welcome to our library API!</h1>
     </body>
     </html>  
     """
@@ -178,3 +177,10 @@ def move_book(user_id, shelf_id, book_id):
     except:
         return jsonify({'message': 'Book could not be moved'}), 400
 
+if __name__ == '__main__':
+    print('Staring server...')
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+    app.run(host='0.0.0.0', debug=True, port=port)
+    print('Stopping server...!')
