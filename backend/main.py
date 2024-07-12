@@ -106,7 +106,7 @@ def user_libraries(user_id):
     except:
         return jsonify({'message': 'No shelves available'}), 404   
 
-#new book to specific shelf by ide and user by id
+#get books from each user by id
 @app.route("/users/<user_id>/books", methods=['POST'])
 def new_book(user_id, shelf_id):
     try:
@@ -142,7 +142,7 @@ def update_book(user_id, shelf_id, book_id):
         book.user_rating = data.get('user_rating')
         book.amnt_pages = data.get('amnt_pages')
         book.date_added = datetime.fromisoformat(data.get('date_added'))
-        book.finished_date = datetime.fromisoformat(data.get('date_finished')) if data.get('finished_date') else None,
+        book.finished_date = datetime.fromisoformat(data.get('finished_date')) if data.get('finished_date') else None
         book.author_name = data.get('author_name')
         book.shelf_id = data.get('shelf_id')
         book.user_id = data.get('user_id')
@@ -153,7 +153,7 @@ def update_book(user_id, shelf_id, book_id):
 
 #delete book
 @app.route("/users/<user_id>/shelves/<shelf_id>/<book_id>", methods=['DELETE'])
-def delete_book(iser_id, shelf_id, book_id):
+def delete_book(user_id, shelf_id, book_id):
     try:
         book = Book.query.get(book_id)
         if not book:
