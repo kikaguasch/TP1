@@ -128,6 +128,10 @@ def new_book(user_id, shelf_id):
         db.session.commit()
 
         cover_url = data.get('cover_url')
+        if cover_url:
+            new_cover = Book_Image(book_name=new_book.title, cover_url=cover_url)
+            db.session.add(new_cover)
+            db.session.commit()
 
         return jsonify({'message': 'Book created successfully'}), 201
     except:
@@ -151,7 +155,16 @@ def update_book(user_id, shelf_id, book_id):
         book.user_id = data.get('user_id')
         db.session.commit()
 
-        cover_url = db.session.query(Book_Image.cover_url).filter(Book_Image.book_name == book.title).first()
+        cover_url = data.get('cover_url')
+        if cover_url:
+            book_image = Book_Image.query.filter_by(book_name=book.title).first()
+            if book_image:
+                book_image.cover_url = cover_url
+            else:
+                new_cover = Book_Image(book_name=book.title, cover_url=cover_url)
+                db.session.add(new_cover)
+            db.session.commit()
+        cover_url = db.session.query(Book_Image.cover_url).filter_by(book_name=book.title).first()[0]   
         book_data = {
             'id': book.id,
             'title': book.title,
