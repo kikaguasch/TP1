@@ -4,14 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# class Author(db.Model):
-#     __tablename__ = 'authors'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(255), nullable=False)
-#     age = db.Column(db.Integer, nullable=False)
-#     avg_rating = db.Column(db.Real, nullable=False)
-#     books = db.relationship("Book")
-
 class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
