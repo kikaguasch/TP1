@@ -15,7 +15,7 @@ pip install Flask-cors
 pip install sqlalchemy
 ```
 
-##Run
+## Run
 Terminal 1:
 ```bash
 cd backend
