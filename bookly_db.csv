@@ -1,0 +1,41 @@
+﻿id;author_name;title;Shelf_id;amnt_pages;date_added;user_id;cover_url
+1;Sally Rooney;Normal People;1;273;7/1/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1386920300i/63219.jpg 
+4;Emily Henry;Beach Read;1;361;17/1/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1589881197i/52867387.jpg 
+11;Stephanie Meyer;Twilight;1;498;2/4/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1700522826i/41865.jpg
+27;Manuel Puig;Boquitas Pintadas;1;240;11/1/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1386920300i/63219.jpg
+29;Julia Quinn;The Duke and I;2;384;11/2/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1379594717i/110391.jpg
+7;Dolly Alderton;Everything I Know About Love;3;368;31/1/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1563761980i/46041465.jpg
+15;Cassandra Clare;Ciudad de hueso;3;512;11/5/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1376162468i/9025186.jpg
+23;Taylor Jenkins Reid;The Seven Husbands of Evelyn Hugo;3;389;16/7/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1664458703i/32620332.jpg
+31;Louis May Alcott;Mujercitas;3;257;27/2/2024;1;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1558904941i/46020761.jpg
+5;Suzanne Collins;Los juegos del hambre;1;396;20/1/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1335891621i/6596839.jpg
+9;Veronica Roth;Divergente;1;487;20/2/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618526890i/13335037.jpg
+10;James Dashner;The Maze Runner;1;384;21/2/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1375596592i/6186357.jpg
+33;Khaled Hosseini;The Kite Runner;1;371;5/4/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1579036753i/77203.jpg
+8;Paula Hawkins;La chica del tren;2;496;4/2/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1428001420i/25270785.jpg
+25;Agatha Christie;Asesinato en el Oriente Express;2;253;24/7/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1254772570i/6723396.jpg
+32;F. Scott Fitzgerald;The Great Gatsby;2;180;14/3/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1490528560i/4671.jpg
+24;Agatha Christie;El Misterio del Tren Azul;3;272;19/7/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1437912555i/25982891.jpg
+30;George Orwell;Animal Farm;3;141;21/2/2024;2;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1325861570i/170448.jpg
+14;Marvel Comics;Captain America;1;176;30/4/2024;3;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1524855329i/371997.jpg
+18;Marvel Comics;Avengers;1;36;25/5/2024;3;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602927036i/25820704.jpg
+36;Marvel Comics;Doctor Strange;1;32;9/6/2024;3;https://cdn.marvel.com/u/prod/marvel/i/mg/9/60/6532ccb97ec05/clean.jpg
+19;Marvel Comics;Deadpool;2;112;16/6/2024;3;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1409503511i/17251103.jpg
+20;Marvel Comics;X-men;2;64;26/6/2024;3;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1500464817i/31979.jpg
+35;Marvel Comics;Ant-man;2;22;13/5/2024;3;https://cdn.marvel.com/u/prod/marvel/i/mg/a/03/63b4354d23687/clean.jpg
+2;Marvel Comics;Eternals;3;66;14/1/2024;3;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1642278829i/60132246.jpg 
+34;Marvel Comics;Daredevil;3;23;13/4/2024;3;https://cdn.marvel.com/u/prod/marvel/i/mg/5/c0/64025b90bae43/clean.jpg
+13;Rosa Montero;La ridicula idea de no volver a verte;1;240;11/4/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1362851762i/17567272.jpg
+22;Cielo Latini;Abzurdah;1;290;14/7/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1348330222i/78392.jpg
+37;Tamara Tenenbaum;Nadie vive tan cerca de nadie;1;224;18/6/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1583177941i/52018637.jpg
+16;Sally Rooney;Conversation With Friends;2;304;16/5/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1638729263i/32187419.jpg
+17;Sally Rooney;Beautiful World, Where Are You;2;337;17/5/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1672783505i/75555793.jpg
+21;Emily Henry;People we meet on vacation;2;364;2/7/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618913179i/54985743.jpg
+26;Manuel Puig;El Beso de la Mujer Araña;2;288;1/1/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1386920300i/63219.jpg
+40;Paolo Giordano;La soledad de los numeros primos;2;288;26/7/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1695803943i/6404125.jpg
+12;Truman Capote;Breakfast At Tiffany's;3;142;9/4/2024;4;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1477015353i/251688.jpg
+39;Janet Frame;Un ángel en mi mesa;1;475;17/7/2024;5;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1365944198i/6709927.jpg
+3;Gabriel Rolon;Historias de diván: Ocho relatos de vida;2;256;16/1/2024;5;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1328728885i/6703883.jpg 
+6;Daniel Jones;Modern Love;2;304;26/1/2024;5;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1624736725i/45697243.jpg
+28;James Clear;Atomic Habits;2;319;18/1/2024;5;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1655988385i/40121378.jpg
+38;Malala Yousafzai;I Am Malala;3;327;19/6/2024;5;https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1375414895i/17851885.jpg
