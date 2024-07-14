@@ -13,6 +13,8 @@ sudo apt-get -y install postgresql
 pip install Flask-cors
 
 pip install sqlalchemy
+
+pip install Flask SQLAlchemy psycopg2-binary
 ```
 
 ## Run
