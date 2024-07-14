@@ -1,0 +1,30 @@
+* {
+    font-family: 'Nunito', sans-serif;
+}
+
+header{
+    background-color: #D0DEEB;
+}
+
+.logo {
+    width: 10%;
+}
+
+.header-nav h3 {
+    font-weight: 500; 
+}
+
+.header-nav .nav-link {
+    font-size: 135%; 
+    font-weight: 200;
+}
+
+.bi-person-fill {
+    font-size: 220%;
+
+}
+
+body{
+    background-color: #FFFFF0 !important;
+}
+
