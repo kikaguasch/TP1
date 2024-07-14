@@ -94,10 +94,8 @@ def user_libraries(user_id):
                     'id': book.id,
                     'title': book.title,
                     'author_name': book.author_name,
-                    'user_rating': book.user_rating,
                     'amnt_pages': book.amnt_pages,
                     'date_added': book.date_added.isoformat(),
-                    'finished_date': book.finished_date.isoformat() if book.finished_date else None,
                     'cover_url': cover_url
                 }
                 shelf_data['books'].append(book_data)
@@ -116,10 +114,8 @@ def new_book(user_id, shelf_id):
             return jsonify({'message': 'Shelf could not be found'}), 404
         new_book = Book(
             title=data.get('title'), 
-            user_rating=data.get('user_rating'), 
             amnt_pages=data.get('amnt_pages'), 
             date_added=datetime.now(), 
-            finished_date=data.get('finished_date'), 
             author_name=data.get('author_name'), 
             shelf_id=shelf_type.id,
             user_id=user_id
@@ -146,10 +142,8 @@ def update_book(user_id, shelf_id, book_id):
             return jsonify({'message': 'Book could not be found'}), 404
         data = request.json
         book.title = data.get('title')
-        book.user_rating = data.get('user_rating')
         book.amnt_pages = data.get('amnt_pages')
         book.date_added = datetime.fromisoformat(data.get('date_added'))
-        book.finished_date = datetime.fromisoformat(data.get('finished_date')) if data.get('finished_date') else None
         book.author_name = data.get('author_name')
         book.shelf_id = data.get('shelf_id')
         book.user_id = data.get('user_id')
@@ -169,10 +163,8 @@ def update_book(user_id, shelf_id, book_id):
             'id': book.id,
             'title': book.title,
             'author_name': book.author_name,
-            'user_rating': book.user_rating,
             'amnt_pages': book.amnt_pages,
             'date_added': book.date_added.isoformat(),
-            'finished_date': book.finished_date.isoformat() if book.finished_date else None,
             'cover_url': cover_url
         }
         return jsonify({'message': 'Book updated successfully'}), 200
