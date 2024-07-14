@@ -13,6 +13,7 @@ class Book(db.Model):
     amnt_pages = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, default=datetime.datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    cover_url = db.Column(db.String(255), nullable=False)
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -27,9 +28,3 @@ class Shelf_Type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(255), nullable=False)
     books = db.relationship("Book", backref="shelf_type", lazy=True)
-
-class Book_Image(db.Model):
-    __tablename__ = 'book_images'
-    id = db.Column(db.Integer, primary_key=True)
-    book_name = db.Column(db.String(255), nullable=False)
-    cover_url = db.Column(db.String(255), nullable=False)

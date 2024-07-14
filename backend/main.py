@@ -72,39 +72,38 @@ def user(user_id):
         return jsonify({'message': 'El usuario no existe'}), 404
 
 #get shelves from each user by id
-@app.route("/users/<user_id>/shelves", methods=['GET'])
-def user_libraries(user_id):
+@app.route("/users/<user_id>/shelves/<shelf_id>", methods=['GET'])
+def user_specific_shelves(user_id, shelf_id):
     try:
         user = User.query.get(user_id)
         if not user:
             return jsonify({'message': 'User could not be found'}), 404
         
-        shelves_data = []
-        shelf_types = Shelf_Type.query.all()
-
-        for shelf_type in shelf_types: #para cada 'estante' le asigna un id, tipo de estante y libros
-            shelf_data = {
-                'id': shelf_type.id,
-                'type': shelf_type.type,
-                'books': []
+        shelf_type = Shelf_Type.query.get(shelf_id)
+        if not shelf_type:
+            return jsonify({'message': 'Shelf could not be found'}), 404
+        
+        shelf_data = {
+            'id': shelf_type.id,
+            'type': shelf_type.type,
+            'books': []
+        }
+        books = Book.query.filter_by(user_id=user_id, shelf_id=shelf_type.id).all()
+        for book in books: 
+            book_data = {
+                'id': book.id,
+                'title': book.title,
+                'author_name': book.author_name,
+                'amnt_pages': book.amnt_pages,
+                'date_added': book.date_added.isoformat(),
+                'cover_url': book.cover_url
             }
-            books = Book.query.filter_by(user_id=user_id, shelf_id=shelf_type.id).all()
-            for book, cover_url in books: 
-                book_data = {
-                    'id': book.id,
-                    'title': book.title,
-                    'author_name': book.author_name,
-                    'amnt_pages': book.amnt_pages,
-                    'date_added': book.date_added.isoformat(),
-                    'cover_url': cover_url
-                }
-                shelf_data['books'].append(book_data)
-                shelves_data.append(shelf_data)
-            return jsonify(shelves_data)
+            shelf_data['books'].append(book_data)
+        return jsonify(shelf_data)
     except:
         return jsonify({'message': 'No shelves available'}), 404   
 
-#get books from each user by id
+#create new book
 @app.route("/users/<user_id>/books", methods=['POST'])
 def new_book(user_id, shelf_id):
     try:
