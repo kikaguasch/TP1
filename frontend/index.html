@@ -31,7 +31,7 @@
         
         function parse_user_data(content) {
             console.log("I have the list of users!");
-            const container = document.getElementById("name_user");
+            const container = document.getElementById("users");
             for (let index = 0; index < content.length; index++) {
                 const item = document.createElement("li");
                 item.innerHTML = `<a href="/users?id=${content[index].id}" target=_blank>${content[index].name}</a>`;
