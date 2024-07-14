@@ -69,7 +69,7 @@ def user(user_id):
         }
         return jsonify(user_data)
     except:
-        return jsonify({'message': 'El usuario no existe'}), 404
+        return jsonify({'message': 'User does not exist'}), 404
 
 #get shelves from each user by id
 @app.route("/users/<user_id>/shelves/<shelf_id>", methods=['GET'])
