@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from models import db, User, Book, Shelf_Type, Book_Image
+from models import db, User, Book, Shelf_Type
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -72,41 +72,38 @@ def user(user_id):
         return jsonify({'message': 'El usuario no existe'}), 404
 
 #get shelves from each user by id
-@app.route("/users/<user_id>/shelves", methods=['GET'])
-def user_libraries(user_id):
+@app.route("/users/<user_id>/shelves/<shelf_id>", methods=['GET'])
+def user_specific_shelves(user_id, shelf_id):
     try:
         user = User.query.get(user_id)
         if not user:
             return jsonify({'message': 'User could not be found'}), 404
         
-        shelves_data = []
-        shelf_types = Shelf_Type.query.all()
-
-        for shelf_type in shelf_types: #para cada 'estante' le asigna un id, tipo de estante y libros
-            shelf_data = {
-                'id': shelf_type.id,
-                'type': shelf_type.type,
-                'books': []
+        shelf_type = Shelf_Type.query.get(shelf_id)
+        if not shelf_type:
+            return jsonify({'message': 'Shelf could not be found'}), 404
+        
+        shelf_data = {
+            'id': shelf_type.id,
+            'type': shelf_type.type,
+            'books': []
+        }
+        books = Book.query.filter_by(user_id=user_id, shelf_id=shelf_type.id).all()
+        for book in books: 
+            book_data = {
+                'id': book.id,
+                'title': book.title,
+                'author_name': book.author_name,
+                'amnt_pages': book.amnt_pages,
+                'date_added': book.date_added.isoformat(),
+                'cover_url': book.cover_url
             }
-            books = Book.query.filter_by(user_id=user_id, shelf_id=shelf_type.id).all()
-            for book, cover_url in books: 
-                book_data = {
-                    'id': book.id,
-                    'title': book.title,
-                    'author_name': book.author_name,
-                    'user_rating': book.user_rating,
-                    'amnt_pages': book.amnt_pages,
-                    'date_added': book.date_added.isoformat(),
-                    'finished_date': book.finished_date.isoformat() if book.finished_date else None,
-                    'cover_url': cover_url
-                }
-                shelf_data['books'].append(book_data)
-                shelves_data.append(shelf_data)
-            return jsonify(shelves_data)
+            shelf_data['books'].append(book_data)
+        return jsonify(shelf_data)
     except:
         return jsonify({'message': 'No shelves available'}), 404   
 
-#get books from each user by id
+#create new book
 @app.route("/users/<user_id>/books", methods=['POST'])
 def new_book(user_id, shelf_id):
     try:
@@ -116,22 +113,15 @@ def new_book(user_id, shelf_id):
             return jsonify({'message': 'Shelf could not be found'}), 404
         new_book = Book(
             title=data.get('title'), 
-            user_rating=data.get('user_rating'), 
             amnt_pages=data.get('amnt_pages'), 
             date_added=datetime.now(), 
-            finished_date=data.get('finished_date'), 
             author_name=data.get('author_name'), 
             shelf_id=shelf_type.id,
-            user_id=user_id
-        )
+            user_id=user_id,
+            cover_url=data.get('cover_url')
+        )  
         db.session.add(new_book)
         db.session.commit()
-
-        cover_url = data.get('cover_url')
-        if cover_url:
-            new_cover = Book_Image(book_name=new_book.title, cover_url=cover_url)
-            db.session.add(new_cover)
-            db.session.commit()
 
         return jsonify({'message': 'Book created successfully'}), 201
     except:
@@ -146,34 +136,21 @@ def update_book(user_id, shelf_id, book_id):
             return jsonify({'message': 'Book could not be found'}), 404
         data = request.json
         book.title = data.get('title')
-        book.user_rating = data.get('user_rating')
         book.amnt_pages = data.get('amnt_pages')
         book.date_added = datetime.fromisoformat(data.get('date_added'))
-        book.finished_date = datetime.fromisoformat(data.get('finished_date')) if data.get('finished_date') else None
         book.author_name = data.get('author_name')
         book.shelf_id = data.get('shelf_id')
         book.user_id = data.get('user_id')
+        book.cover_url = data.get('cover_url')
         db.session.commit()
 
-        cover_url = data.get('cover_url')
-        if cover_url:
-            book_image = Book_Image.query.filter_by(book_name=book.title).first()
-            if book_image:
-                book_image.cover_url = cover_url
-            else:
-                new_cover = Book_Image(book_name=book.title, cover_url=cover_url)
-                db.session.add(new_cover)
-            db.session.commit()
-        cover_url = db.session.query(Book_Image.cover_url).filter(Book_Image.book_name == book.title).first()
         book_data = {
             'id': book.id,
             'title': book.title,
             'author_name': book.author_name,
-            'user_rating': book.user_rating,
             'amnt_pages': book.amnt_pages,
             'date_added': book.date_added.isoformat(),
-            'finished_date': book.finished_date.isoformat() if book.finished_date else None,
-            'cover_url': cover_url
+            'cover_url': book.cover_url
         }
         return jsonify({'message': 'Book updated successfully'}), 200
     except:
