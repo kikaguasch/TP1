@@ -16,3 +16,20 @@ pip install sqlalchemy
 ```
 
 ##Run
+Terminal 1:
+```bash
+cd backend
+source venv/bin/activate
+python3 main.py
+```
+
+Terminal 2:
+```bash
+cd frontend
+python3 -m http.sever
+```
+
+Terminal 3:
+```bash
+sudo -u [your_username] psql [database_name]
+```
