@@ -63,7 +63,7 @@
         
         function parse_user_data(content) {
             console.log("I have the list of users!");
-            const container = document.getElementById("name_user");
+            const container = document.getElementById("users");
             container.innerText = content.name
         }
         
@@ -140,9 +140,9 @@
             document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
             document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
             document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
-            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+            // document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            // document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            // document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
         }
         
     </script>
