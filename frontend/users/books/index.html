@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookly</title>
+    <link rel="stylesheet" href="/frontend/users/books/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar header-nav navbar-expand">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img class="logo" src="img/LOGO.webp" alt="logo">
+                <h3 class="mb-0">Bookly</h3>
+            </div>
+            <nav class="ml-auto">
+                <ul class="nav nav-underline">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href='/'">Users</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}`">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=2`">To-read</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=1`">Read</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=3`">Currently</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}/add`">Add book</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="d-flex align-items-center mx-4">
+                <i class="bi bi-person-fill"></i>
+                <h4 class="m-2" id="users"></h4>            
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 col-md-10 mx-auto">
+                <div class="card-body display-card">
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="" alt="" id="image">
+                        </div>
+                        <div class="col-6">
+                            <h2 id="title"></h2>
+                            <p>Author: </p><p id="author"></p> 
+                            <p>Pages:</p><p id="pages"></p> 
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer justify-content-between">
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Change book to
+                        </a>
+                      
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">To-read</a></li>
+                          <li><a class="dropdown-item" href="#">Currently reading</a></li>
+                          <li><a class="dropdown-item" href="#">Read</a></li>
+                        </ul>
+                      </div>
+                    <button class="btn btn-danger" onclick="remove_book()">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function response_received(response) {
+            return response.json();
+        }
+        
+        function parse_user_data(content) {
+            console.log("I have the list of users!");
+            const container = document.getElementById("users");
+            container.innerText = content.name
+        }
+        
+        function request_error(error) {
+            console.log("ERROR");
+            console.log(error);
+        }
+
+        let parametros = window.location.search;
+        let id = new URLSearchParams(parametros).get("id")
+        let shelf_id = new URLSearchParams(parametros).get("book")
+
+        function parse_book_data(content) {
+            const image = document.getElementById('image');
+            image.setAttribute('src', content.cover_url);
+
+            const title = document.getElementById('title');
+            title.innerText = content.title;
+
+            const author = document.getElementById('author');
+            author.innerText = `by ${content.author_name}`
+            
+            const pages = document.getElementById('pages');
+            amnt_pages.innerText = `Pages: ${content.amnt_pages}`
+
+
+            card-body.append(title, author_name, cover_url); 
+            card.append(card-body);
+            const card_container = document.querySelector('.display-card');
+            card_container.innerHTML = '';
+            card_container.append(card);
+        }
+
+
+        fetch(`http://localhost:5000/users/${id}/books/${book_id}`)
+            .then(response_recieved)
+            .then(parse_book_data)
+            .catch(request_error)
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const user_id = urlParams.get('id');
+
+        function delete_data(data){
+            if (data.success){
+                alert("Character removed succesfully")
+                Window.location.href = `http://localhost:5000/users/${id}`
+
+            } else {
+                alert("An error has occured")
+            }
+        }
+
+        function remove_book(event){
+            fetch(`http://localhost:5000/users/${id}/books/${book_id}`, {method: "DELETE"})
+            .then(response_received)
+            .then(delete_data)
+            .catch(request_error)
+
+
+        }
+
+    </script>
+</body>
+</html>
