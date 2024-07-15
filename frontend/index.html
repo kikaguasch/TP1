@@ -36,7 +36,7 @@
             const container = document.getElementById("users");
             for (let index = 0; index < content.length; index++) {
                 const item = document.createElement("li");
-                item.innerHTML = `<a href="/users?id=${content[index].id}" target=_blank>${content[index].name}</a>`;
+                item.innerHTML = `<a href="/users?id=${content[index].id}">${content[index].name}</a>`;
                 container.append(item);
             }
         }
@@ -47,10 +47,14 @@
         }
         
 
-        fetch("http://localhost:5000/users")
-        .then(response_received)
-        .then(parse_user_data)
-        .catch(request_error);
+        function load_users() {
+            fetch("http://localhost:5000/users/")
+                .then(response_received)
+                .then(parse_user_data)
+                .catch(request_error);
+        }
+        document.addEventListener("DOMContentLoaded", load_users);
+
   </script>
 </body>
 </html>
