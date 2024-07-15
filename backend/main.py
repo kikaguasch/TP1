@@ -54,10 +54,13 @@ def new_user():
         db.session.add(user)
         db.session.commit()
 
-        return jsonify({'message': 'User created', 'user_id': user.id}), 201 #creado
+        return jsonify({'success': True, 'id': user.id}), 201
+        # return jsonify({'message': 'User created', 'user_id': user.id}), 201 #creado
+
     except Exception as error:
         print(f"Error: {error}")
-        return jsonify({'message': 'Could not create user', 'error': str(error)}), 400
+        # return jsonify({'message': 'Could not create user', 'error': str(error)}), 400
+        return jsonify({'success': False, 'message': str(error)}), 400
 
 #get user by id
 @app.route("/users/<user_id>", methods=['GET'])

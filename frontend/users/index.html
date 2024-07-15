@@ -93,6 +93,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+
         function response_received(response) {
             return response.json();
         }
@@ -120,64 +122,66 @@
                 .then(response => response.json())
                 .then(data => data.books)
         }
-        function display_currently_reading() {
-            const card_container = document.querySelector('.currently-reading-books');
-            const shelf_id = 3;
+        function display_books(selector, shelf_id) {
+                const card_container = document.querySelector(selector);
+                fetch(`http://localhost:5000/users/${id}/shelves/${shelf_id}`)
+                    .then(response => response.json())
+                    .then(shelf => {
+                        card_container.innerHTML = '';
+                        if (shelf.books.length > 0) {
+                            shelf.books.forEach(book => {
+                                const item = document.createElement('div');
+                                item.setAttribute("class", "col-md-3 mb-3");
 
+                                const card = document.createElement('a');
+                                card.setAttribute("class", "card text-decoration-none");
+                                card.setAttribute("style", "width: 200px; height: 200px;");
 
-            fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
-                .then(response => response.json())
-                .then(shelf => {card_container.innerHTML = '';
+                                const image = document.createElement('img');
+                                image.setAttribute("class", "card-img-top");
+                                image.setAttribute("style", "width: 100px; height: 100px;");
+                                image.setAttribute('src', book.cover_url);
 
-                if (shelf.books.length > 0) {
-                    shelf.books.forEach(book => {
-                        const item = document.createElement('div');
-                        item.setAttribute("class", "col-md-3 mb-3");
+                                const card_body = document.createElement('div');
+                                card_body.setAttribute("class", "card-body");
 
-                        const card = document.createElement('a');
-                        card.setAttribute("class", "card text-decoration-none");
-                        card.setAttribute("style", "width: 200px", "height", "200px");
+                                const title = document.createElement('h5');
+                                title.setAttribute("class", "card-title");
+                                title.textContent = book.title;
 
+                                const author_name = document.createElement('p');
+                                author_name.setAttribute("class", "card-text");
+                                author_name.textContent = `by ${book.author_name}`;
 
-                        const image = document.createElement('img');
-                        image.setAttribute("class", "card-img-top");
-                        image.setAttribute("style", "width: 100px", "height: 100px", "display: inline-block");
-                        image.setAttribute('src', book.cover_url); 
-
-                        const card_body = document.createElement('div');
-                        card_body.setAttribute("class", "card-body");
-
-                        const title = document.createElement('h5');
-                        title.setAttribute("class", "card-title");
-                        title.textContent = book.title;
-
-                        const author_name = document.createElement('p');
-                        author_name.setAttribute("class", "card-text");
-                        author_name.textContent = `by ${book.author_name}`;
-
-                        card_body.append(title, author_name);
-                        card.append(image, card_body);
-
-                        card_container.append(card);
-                        
+                                card_body.append(title, author_name);
+                                card.append(image, card_body);
+                                card_container.append(card);
+                            });
+                        } else {
+                            const noBooksMessage = document.createElement('p');
+                            noBooksMessage.classList.add('text-muted');
+                            noBooksMessage.textContent = 'No books found for this shelf.';
+                            card_container.appendChild(noBooksMessage);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching or displaying books:", error);
                     });
-                } else {
-                    const noBooksMessage = document.createElement('p');
-                    noBooksMessage.classList.add('text-muted');
-                    noBooksMessage.textContent = 'No books found for this shelf.';
-                    cardContainer.appendChild(noBooksMessage);
-                }
-                })
-                .catch(error => {console.error("Error fetching or displaying books:", error);
-            });
+            }
 
-        }
+            function display_currently_reading() {
+                display_books('.currently-reading-books', 3);
+            }
 
-        function display_toread() {
-            const card_container = document.querySelector('.toread-books');
-            const shelf_id = 2;
+            function display_toread() {
+                display_books('.toread-books', 2);
+            }
 
+            function display_read() {
+                display_books('.read-books', 1);
+            }
 
+<<<<<<< HEAD
             fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
                 .then(response => response.json())
                 .then(shelf => {card_container.innerHTML = '';
@@ -279,6 +283,8 @@
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
         }
+=======
+>>>>>>> ea1dd30808fd4e664c63eac466c76e56b533e0ea
         const urlParams = new URLSearchParams(window.location.search);
         const user_id = urlParams.get('id');
         const selectedShelf = urlParams.get('shelf');
@@ -289,9 +295,9 @@
             document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
             document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
             document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
-            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+            // document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            // document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            // document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
         }
         if (selectedShelf) {
             document.getElementById('currently-reading-section').style.display = 'none';
@@ -313,6 +319,7 @@
             display_toread();
             display_read();
         }
+    });
     </script>
 </body>
 </html>
