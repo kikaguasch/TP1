@@ -158,21 +158,24 @@
                 .then(handle_response)
                 .catch((error) => console.log("ERROR", error))
         }
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const user_id = urlParams.get('id');
 
+            if (user_id) {
+                const homeLink = document.getElementById('home-link');
+                const toReadLink = document.getElementById('to-read-link');
+                const readLink = document.getElementById('read-link');
+                const currentlyLink = document.getElementById('currently-link');
+                const addBookLink = document.getElementById('add-book-link');
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const user_id = urlParams.get('id');
-
-        if (user_id) {
-            document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
-            document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
-            document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
-            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
-        }
+                if (homeLink) homeLink.setAttribute('href', `/users/?id=${user_id}`);
+                if (toReadLink) toReadLink.setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+                if (readLink) readLink.setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+                if (currentlyLink) currentlyLink.setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+                if (addBookLink) addBookLink.setAttribute('href', `/users/add/?id=${user_id}`);
+            }
+        });
   </script>
 </body>
 

@@ -51,7 +51,7 @@
         <h1 class="h1 mb-4">Welcome!</h1>
     </div>
 
-    <div class="container-fluid m-5">
+    <div class="container-fluid m-5" id="currently-reading-section">
         <div class="d-flex justify-content-between">
           <h3>Currently Reading</h3>
           <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href='/users/currently'">View all</a>
@@ -64,7 +64,7 @@
         
     </div>
 
-    <div class="container-fluid m-5">
+    <div class="container-fluid m-5" id="to-read-section">
         <div class="d-flex justify-content-between">
           <h3>To-read</h3>
           <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href='/users/toread'">View all</a>
@@ -77,7 +77,7 @@
         
     </div>
 
-    <div class="container-fluid m-5">
+    <div class="container-fluid m-5" id="read-section">
         <div class="d-flex justify-content-between">
           <h3>Read</h3>
           <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href='/users/read'">View all</a>
@@ -287,6 +287,7 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const user_id = urlParams.get('id');
+        
 
         if (user_id) {
             document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);

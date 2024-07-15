@@ -37,18 +37,27 @@ def users():
         return jsonify({'message': 'No current readers'}), 404
 
 #create users    
-@app.route("/users/", methods=['POST'])
+@app.route("/users/create", methods=['POST'])
 def new_user():
     try:
         data = request.json
-        user = User(name = data.get('name'), age = data.get('age'))
+        print(f"Received data: {data}")
+        if not data:
+            return jsonify({'message': 'No input data provided'}), 400
+        name = data.get('name')
+        age = data.get('age')
+        if not name or not age:
+            return jsonify({'message': 'Name and age are required'}), 400
+
+        user = User(name=name, age=age)
         # new_shelf = User(name=user.name, age=user.age)
         db.session.add(user)
         db.session.commit()
 
-        return jsonify({'message': 'User created'}), 201 #creado
+        return jsonify({'message': 'User created', 'user_id': user.id}), 201 #creado
     except Exception as error:
-        return jsonify({'message': 'Could not create user'}), 400
+        print(f"Error: {error}")
+        return jsonify({'message': 'Could not create user', 'error': str(error)}), 400
 
 #get user by id
 @app.route("/users/<user_id>", methods=['GET'])
