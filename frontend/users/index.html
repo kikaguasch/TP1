@@ -107,7 +107,7 @@
             console.log("ERROR");
             console.log(error);
         }
-        let parametros = window.search;
+        let parametros = window.location.search;
         let id = new URLSearchParams(parametros).get("id")
 
         fetch(`http://localhost:5000/users/${id}`)
@@ -120,112 +120,162 @@
                 .then(response => response.json())
                 .then(data => data.books)
         }
-        function displayCurrentlyReading() {
-            const cardContainer = document.querySelector('.currently-reading-books');
-            fetchBooks(3)
-                .then(books => {cardContainer.innerHTML = '';
+        function display_currently_reading() {
+            const card_container = document.getElementById('.currently-reading-books');
+            //falta agarrar el user id creo 
+            const shelf_id = 3;
 
-                for(let index = 0; index < 3; index++){
-                    if (books.length > 0) {
-                    books.forEach(book => {
-                    const card = document.createElement('div');
-                    card.classList.add('col-md-3', 'mb-3');
-                    card.innerHTML = `
-                        <div class="card">
-                        <img src="${book.cover_url}" class="card-img-top" alt="${book.title}">
-                        <div class="card-body">
-                            <h5 class="card-title">${book.title}</h5>
-                            <p class="card-text">by ${book.author}</p>
-                        </div>
-                        </div>
-                    `;
-                    cardContainer.appendChild(card);
-                    });
-                    } else {
+
+            fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
+                .then(response => response.json())
+                .then(books => {card_Container.innerHTML = '';
+
+                if (books.length > 0) {
+                    for (let index = 0; index < books.length; index++) {
+                        const book = books[index];
+
+                        const item = document.createElement('div');
+                        item.setAttribute("class", "col-md-3 mb-3");
+
+                        const card = document.createElement('a');
+                        card.setAttribute("class", "card text-decoration-none");
+
+                        const image = document.createElement('img');
+                        image.setAttribute("class", "card-img-top");
+                        image.setAttribute('src', book.cover_url); 
+
+                        const card_body = document.createElement('div');
+                        cardBody.setAttribute("class", "card-body");
+
+                        const title = document.createElement('h5');
+                        title.setAttribute("class", "card-title");
+                        title.textContent = book.title;
+
+                        const author = document.createElement('p');
+                        author.setAttribute("class", "card-text");
+                        author.textContent = `by ${book.author}`;
+
+                        card_body.append(title, author);
+                        card.append(image, card_body);
+
+                        card_container.append(card);
+                        
+                    }
+                } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
                     noBooksMessage.textContent = 'No books found for this shelf.';
                     cardContainer.appendChild(noBooksMessage);
-                    }
                 }
-                
                 })
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
         }
 
-        function displayToRead() {
-            const cardContainer = document.querySelector('.to-read-books');
+        function display_toread() {
+            const card_container = document.getElementById('.toread-books');
+            //falta agarrar el user id creo 
+            const shelf_id = 2;
 
-            fetchBooks(2)
-                .then(books => {cardContainer.innerHTML = '';
 
-                for(let index = 0; index < 3; index++){
-                    if (books.length > 0) {
-                    books.forEach(book => {
-                    const card = document.createElement('div');
-                    card.classList.add('col-md-3', 'mb-3');
-                    card.innerHTML = `
-                        <div class="card">
-                        <img src="${book.cover_url}" class="card-img-top" alt="${book.title}">
-                        <div class="card-body">
-                            <h5 class="card-title">${book.title}</h5>
-                            <p class="card-text">by ${book.author}</p>
-                        </div>
-                        </div>
-                    `;
-                    cardContainer.appendChild(card);
-                    });
-                    } else {
+            fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
+                .then(response => response.json())
+                .then(books => {card_Container.innerHTML = '';
+
+                if (books.length > 0) {
+                    for (let index = 0; index < books.length; index++) {
+                        const book = books[index];
+
+                        const item = document.createElement('div');
+                        item.setAttribute("class", "col-md-3 mb-3");
+
+                        const card = document.createElement('a');
+                        card.setAttribute("class", "card text-decoration-none");
+
+                        const image = document.createElement('img');
+                        image.setAttribute("class", "card-img-top");
+                        image.setAttribute('src', book.cover_url); 
+
+                        const card_body = document.createElement('div');
+                        cardBody.setAttribute("class", "card-body");
+
+                        const title = document.createElement('h5');
+                        title.setAttribute("class", "card-title");
+                        title.textContent = book.title;
+
+                        const author = document.createElement('p');
+                        author.setAttribute("class", "card-text");
+                        author.textContent = `by ${book.author}`;
+
+                        card_body.append(title, author);
+                        card.append(image, card_body);
+
+                        card_container.append(card);
+                        
+                    }
+                } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
                     noBooksMessage.textContent = 'No books found for this shelf.';
                     cardContainer.appendChild(noBooksMessage);
-                    }
                 }
-                
                 })
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
         }
 
-        function displayRead() {
-            const cardContainer = document.querySelector('.read-books');
+        function display_read() {
+            const card_container = document.getElementById('.read-books');
+            //falta agarrar el user id creo 
+            const shelf_id = 1;
 
-            fetchBooks(1)
-                .then(books => {cardContainer.innerHTML = '';
 
-                for(let index = 0; index < 3; index++){
-                    if (books.length > 0) {
-                    books.forEach(book => {
-                    const card = document.createElement('div');
-                    card.classList.add('col-md-3', 'mb-3');
-                    card.innerHTML = `
-                        <div class="card">
-                        <img src="${book.cover_url}" class="card-img-top" alt="${book.title}">
-                        <div class="card-body">
-                            <h5 class="card-title">${book.title}</h5>
-                            <p class="card-text">by ${book.author}</p>
-                        </div>
-                        </div>
-                    `;
-                    cardContainer.appendChild(card);
-                    });
-                    } else {
+            fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
+                .then(response => response.json())
+                .then(books => {card_Container.innerHTML = '';
+
+                if (books.length > 0) {
+                    for (let index = 0; index < books.length; index++) {
+                        const book = books[index];
+
+                        const item = document.createElement('div');
+                        item.setAttribute("class", "col-md-3 mb-3");
+
+                        const card = document.createElement('a');
+                        card.setAttribute("class", "card text-decoration-none");
+
+                        const image = document.createElement('img');
+                        image.setAttribute("class", "card-img-top");
+                        image.setAttribute('src', book.cover_url); 
+
+                        const card_body = document.createElement('div');
+                        cardBody.setAttribute("class", "card-body");
+
+                        const title = document.createElement('h5');
+                        title.setAttribute("class", "card-title");
+                        title.textContent = book.title;
+
+                        const author = document.createElement('p');
+                        author.setAttribute("class", "card-text");
+                        author.textContent = `by ${book.author}`;
+
+                        card_body.append(title, author);
+                        card.append(image, card_body);
+
+                        card_container.append(card);
+                        
+                    }
+                } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
                     noBooksMessage.textContent = 'No books found for this shelf.';
                     cardContainer.appendChild(noBooksMessage);
-                    }
                 }
-                
                 })
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
         }
-        displayCurrentlyReading();
-        displayRead();
-        displayToRead();
+
     </script>
 </body>
 </html>
