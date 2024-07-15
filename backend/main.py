@@ -112,6 +112,7 @@ def user_specific_shelves(user_id, shelf_id):
 def new_book(user_id, shelf_id):
     try:
         data = request.json
+        print(f"Received data: {data}")
         shelf_type = Shelf_Type.query.get(shelf_id)
         if not shelf_type:
             return jsonify({'message': 'Shelf could not be found'}), 404
@@ -128,7 +129,8 @@ def new_book(user_id, shelf_id):
         db.session.commit()
 
         return jsonify({'message': 'Book created successfully'}), 201
-    except:
+    except Exception as error:
+        print(f"Error: {error}")
         return jsonify({'message': 'Book could not be created'}), 400
 
 #update book details

@@ -80,12 +80,12 @@
       <input type="hidden" id="shelfValue" name="shelf">
 
       <div class="mb-3 mt-4">
-        <label for="date" class="form-label">Date Added *</label>
-        <input type="date_added" name="date" class="form-control" id="date_added" required>
+        <label for="date_added" class="form-label">Date Added *</label>
+        <input type="date" name="date" class="form-control" id="date_added" required>
       </div>
       <div class="mb-3 mt-4">
         <label for="cover" class="form-label">Book Cover *</label>
-        <input type="url" name="cover" class="form-control" id="cover" placeholder="URL Image" required>
+        <input type="url" name="cover" class="form-control" id="cover" placeholder="URL Image">
       </div>
       <button type="submit" class="btn btn-secondary mt-1">Add book</button>
     </form>
@@ -94,13 +94,22 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
   <script>
+        const shelfMapping = {
+            'Currently': 3,
+            'To-read': 2,
+            'Read': 1
+        };
+
     function response_data(response){
-      return response.json()
+      if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
     }
 
     function parse_data(content){
       const container = document.getElementById("users");
-      container.innerText = content.nam
+      container.innerText = content.name
     }
 
 
@@ -122,9 +131,10 @@
         event.preventDefault();
         const shelfDropdown = document.getElementById('shelfDropdown');
         const shelfValue = document.getElementById('shelfValue');
-        shelfDropdown.textContent = shelfName;
-        shelfValue.value = shelfName;
-    }
+        shelfDropdown.textContent = event.target.textContent;
+        shelfValue.value = shelfMapping[shelfName];
+        }
+      
         function add_book(event) {
             event.preventDefault()
 
@@ -135,23 +145,30 @@
             const pages = formData.get("pages")
             const shelf = formData.get("shelf")
             const date_added = formData.get("date_added")
-            const image = formData.get("image")
+            const cover = formData.get("cover")
+
+          if (!cover || typeof cover !== 'string') {
+              alert("Please provide a valid cover URL");
+              return;
+          }
+
 
           const user_id = new URLSearchParams(window.location.search).get("id");
 
 
-            fetch("http://localhost:5000/users/${user_id}/sehlves/${shelf_id}/books", {
+            fetch(`http://localhost:5000/users/${user_id}/shelves/${shelf}/books`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     title: title,
-                    author: author,
-                    pages: pages,
-                    shelf: shelf,
+                    author_name: author,
+                    amnt_pages: pages,
+                    shelf_id: shelf,
                     date_added: date_added,
-                    image: image,
+                    cover_url: cover,
+                    user_id: user_id
                 })
             })
                 .then((res) => res.json())

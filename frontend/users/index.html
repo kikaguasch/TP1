@@ -19,23 +19,23 @@
             </div>
             <nav class="ml-auto">
                 <ul class="nav nav-underline">
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-3">
                         <a class="nav-link" onclick="window.location.href='/'">Users</a>
                     </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}`">Home</a>
+                    <li class="nav-item mx-3">
+                        <a id="home-link" class="nav-link">Home</a>
                     </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=2`">To-read</a>
+                    <li class="nav-item mx-3">
+                        <a id="to-read-link" class="nav-link">To-read</a>
                     </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=1`">Read</a>
+                    <li class="nav-item mx-3">
+                        <a id="read-link" class="nav-link">Read</a>
                     </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=3`">Currently</a>
+                    <li class="nav-item mx-3">
+                        <a id="currently-link" class="nav-link">Currently</a>
                     </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}/add`">Add book</a>
+                    <li class="nav-item mx-3">
+                        <a id="add-book-link" class="nav-link">Add book</a>
                     </li>
                 </ul>
             </nav>
@@ -278,14 +278,40 @@
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
         }
-        display_currently_reading();
-        display_toread();
-        display_read();
-
         const urlParams = new URLSearchParams(window.location.search);
         const user_id = urlParams.get('id');
-        
+        const selectedShelf = urlParams.get('shelf');
 
+        if (user_id) {
+            document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
+            document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+            document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
+            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+        }
+        if (selectedShelf) {
+            document.getElementById('currently-reading-section').style.display = 'none';
+            document.getElementById('toread-section').style.display = 'none';
+            document.getElementById('read-section').style.display = 'none';
+
+            if (selectedShelf === '1') {
+                document.getElementById('read-section').style.display = 'block';
+                display_read();
+            } else if (selectedShelf === '2') {
+                document.getElementById('toread-section').style.display = 'block';
+                display_toread();
+            } else if (selectedShelf === '3') {
+                document.getElementById('currently-reading-section').style.display = 'block';
+                display_currently_reading();
+            }
+        } else {
+            display_currently_reading();
+            display_toread();
+            display_read();
+        }
     </script>
 </body>
 </html>
