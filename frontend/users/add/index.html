@@ -121,18 +121,20 @@
 
     function handle_response(data) {
             if (data.success) {
-                window.location.href = `/book?id=${data.id}`
+                const userId = new URLSearchParams(window.location.search).get("id");
+                window.location.href = `http://localhost:8000/users/?id=${userId}`;
             } else {
-                console.log("Error", data)
+                console.log("Error", data);
             }
         }
+
     
         function selectShelf(event, shelfName) {
-        event.preventDefault();
-        const shelfDropdown = document.getElementById('shelfDropdown');
-        const shelfValue = document.getElementById('shelfValue');
-        shelfDropdown.textContent = event.target.textContent;
-        shelfValue.value = shelfMapping[shelfName];
+          event.preventDefault();
+          const shelfDropdown = document.getElementById('shelfDropdown');
+          const shelfValue = document.getElementById('shelfValue');
+          shelfDropdown.textContent = event.target.textContent;
+          shelfValue.value = shelfMapping[shelfName];
         }
       
         function add_book(event) {
