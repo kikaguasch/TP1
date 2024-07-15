@@ -19,24 +19,25 @@
             </div>
             <nav class="ml-auto">
                 <ul class="nav nav-underline">
-                    <li class="nav-item mx-3">
+                    <li class="nav-item mx-3 center-block">
                         <a class="nav-link" onclick="window.location.href='/'">Users</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a id="home-link" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a id="to-read-link" class="nav-link">To-read</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a id="read-link" class="nav-link">Read</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a id="currently-link" class="nav-link">Currently</a>
-                    </li>
-                    <li class="nav-item mx-3">
                         <a id="add-book-link" class="nav-link">Add book</a>
                     </li>
+                    <li class="nav-item mx-3">
+                        <a id="to-read-link" class="nav-link"></a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a id="read-link" class="nav-link"></a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a id="currently-link" class="nav-link"></a>
+                    </li>
+
                 </ul>
             </nav>
             <div class="d-flex align-items-center mx-4">
@@ -119,6 +120,27 @@
                 .then(response => response.json())
                 .then(data => data.books)
         }
+
+
+        function deleteBook(user_id, shelf_id, book_id) {
+            fetch(`http://localhost:5000/users/${user_id}/shelves/${shelf_id}/${book_id}`, {
+                method: "DELETE"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Book deleted:', data);
+                location.reload(); // Reload the page to see the changes
+            })
+            .catch(error => {
+                console.error('There was a problem with the delete request:', error);
+            });
+        }
+
         function display_books(selector, shelf_id) {
                 const card_container = document.querySelector(selector);
                 fetch(`http://localhost:5000/users/${id}/shelves/${shelf_id}`)
@@ -132,8 +154,8 @@
 
                                 const card = document.createElement('a');
                                 card.setAttribute("class", "mx-2 card text-decoration-none align-items-center");
-                                card.setAttribute("style", "width: 250px; height: 350px;");
-                                card.setAttribute("href", `users/?id=${user_id}&book_id=${book.id}`)
+                                card.setAttribute("style", "width: 250px; height: 380px;");
+                                // card.setAttribute("href", `/?id=${user_id}&book_id=${book.id}`)
 
                                 const cover = document.createElement('img');
                                 cover.setAttribute("class", "card-img-top center-block mt-2 ");
@@ -152,8 +174,10 @@
                                 author_name.textContent = `by ${book.author_name}`;
 
                                 const btn = document.createElement('btn');
-                                btn.setAttribute ("class", "btn btn-danger");
-                                btn.textContent = "Remove"
+                                btn.setAttribute ("class", "btn btn-danger inline-block");
+                                btn.textContent = 'Delete';
+                                btn.onclick = () => deleteBook(id, shelf_id, book.id);
+
 
                                 card_body.append(title, author_name, btn);
                                 card.append(cover, card_body);

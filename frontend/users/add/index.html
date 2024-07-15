@@ -28,17 +28,18 @@
                     <a id="home-link" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a id="to-read-link" class="nav-link">To-read</a>
+                  <a id="add-book-link" class="nav-link">Add book</a>
+              </li>
+                <li class="nav-item mx-3">
+                    <a id="to-read-link" class="nav-link"></a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a id="read-link" class="nav-link">Read</a>
+                    <a id="read-link" class="nav-link"></a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a id="currently-link" class="nav-link">Currently</a>
+                    <a id="currently-link" class="nav-link"></a>
                 </li>
-                <li class="nav-item mx-3">
-                    <a id="add-book-link" class="nav-link">Add book</a>
-                </li>
+
             </ul>
         </nav>
         <div class="d-flex align-items-center mx-4">
@@ -99,28 +100,6 @@
             'To-read': 2,
             'Read': 1
         };
-    
-      function response_received(response) {
-          return response.json();
-      }
-
-      function parse_user_data(content) {
-          console.log("I have the list of users!");
-          const container = document.getElementById("users");
-          container.innerText = content.name
-      }
-
-      function request_error(error) {
-          console.log("ERROR");
-          console.log(error);
-      }
-      let parametros = window.location.search;
-      let id = new URLSearchParams(parametros).get("id")
-
-      fetch(`http://localhost:5000/users/${id}`)
-          .then(response_received)
-          .then(parse_user_data)
-          .catch(request_error);
 
     function response_data(response){
       if (!response.ok) {
