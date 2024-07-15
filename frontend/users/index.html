@@ -133,7 +133,7 @@
                                 const card = document.createElement('a');
                                 card.setAttribute("class", "card text-decoration-none");
                                 card.setAttribute("style", "width: 200px; height: 200px;");
-                                card.setAttribute("href", `users/?id=${user_id}/books/?id=${content[index].id}`)
+                                // card.setAttribute("href", `/users?id=${user_id}/books/?id=${content[index].id}`)
 
                                 const image = document.createElement('img');
                                 image.setAttribute("class", "card-img-top");
@@ -189,9 +189,7 @@
             document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
             document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
             document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
-            // document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            // document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            // document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+
         }
         if (selectedShelf) {
             document.getElementById('currently-reading-section').style.display = 'none';

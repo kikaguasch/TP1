@@ -56,7 +56,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMcontentLoaded', (event) =>{
+        document.addEventListener('DOMContentLoaded', (event) =>{
         function response_received(response) {
             return response.json();
         }
@@ -81,7 +81,6 @@
 
         function display_toread() {
             const card_container = document.getElementById('toread-books');
-            //falta agarrar el user id creo 
             const shelf_id = 2;
 
 
@@ -102,7 +101,7 @@
                         cover.setAttribute('src', book.cover_url); 
 
                         const card_body = document.createElement('div');
-                        cardBody.setAttribute("class", "card-body");
+                        card_body.setAttribute("class", "card-body");
 
                         const title = document.createElement('h5');
                         title.setAttribute("class", "card-title");
@@ -114,7 +113,7 @@
 
                         card_body.append(title, author);
                         card.append(cover, card_body);
-
+                        item.append(card);
                         card_container.append(item);
                         
                     });
@@ -142,7 +141,7 @@
 
         }
             display_toread();
-        });
+    });
     </script>
 </body>
 </html>
