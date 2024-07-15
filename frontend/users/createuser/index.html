@@ -43,26 +43,26 @@
         }
         
         function add_user(event) {
-        event.preventDefault()
-    
-        const formData = new FormData(event.target)
-    
-            const name = formData.get("name")
-            const age = formData.get("age")
-    
-                fetch("http://localhost:5000/users/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        age: age
+            event.preventDefault()
+        
+            const formData = new FormData(event.target)
+        
+                const name = formData.get("name")
+                const age = formData.get("age")
+        
+                    fetch("http://localhost:5000/users/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            age: age
+                        })
                     })
-                })
-                    .then((res) => res.json())
-                    .then(handle_response)
-                    .catch((error) => console.log("ERROR", error))
+                        .then((res) => res.json())
+                        .then(handle_response)
+                        .catch((error) => console.log("ERROR", error))
         }
       </script>
 </body>

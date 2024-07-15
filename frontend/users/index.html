@@ -23,19 +23,19 @@
                         <a class="nav-link" onclick="window.location.href='/'">Users</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a id="home-link" class="nav-link">Home</a>
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}`">Home</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a id="to-read-link" class="nav-link">To-read</a>
+                        <a iclass="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=2`">To-read</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a id="read-link" class="nav-link">Read</a>
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=1`">Read</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a id="currently-link" class="nav-link">Currently</a>
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=3`">Currently</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a id="add-book-link" class="nav-link">Add book</a>
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}/add`">Add book</a>
                     </li>
                 </ul>
             </nav>
