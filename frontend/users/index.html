@@ -19,23 +19,23 @@
             </div>
             <nav class="ml-auto">
                 <ul class="nav nav-underline">
-                    <li class="nav-item mx-3">
+                    <li class="nav-item mx-2">
                         <a class="nav-link" onclick="window.location.href='/'">Users</a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a id="home-link" class="nav-link">Home</a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}`">Home</a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a id="to-read-link" class="nav-link">To-read</a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=2`">To-read</a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a id="read-link" class="nav-link">Read</a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=1`">Read</a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a id="currently-link" class="nav-link">Currently</a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}&shelf=3`">Currently</a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a id="add-book-link" class="nav-link">Add book</a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" onclick="window.location.href=`/users/?id=${user_id}/add`">Add book</a>
                     </li>
                 </ul>
             </nav>
@@ -54,7 +54,7 @@
     <div class="container-fluid m-5" id="currently-reading-section">
         <div class="d-flex justify-content-between">
           <h3>Currently Reading</h3>
-          <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href='/users/currently'">View all</a>
+          <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href=`/users/?id=${user_id}&shelf=3`">View all</a>
         </div>
         <div class="row currently-reading-books"></div>
 
@@ -67,7 +67,7 @@
     <div class="container-fluid m-5" id="to-read-section">
         <div class="d-flex justify-content-between">
           <h3>To-read</h3>
-          <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href='/users/toread'">View all</a>
+          <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href=`/users/?id=${user_id}&shelf=2`">View all</a>
         </div>
         <div class="row toread-books"></div>
 
@@ -80,7 +80,7 @@
     <div class="container-fluid m-5" id="read-section">
         <div class="d-flex justify-content-between">
           <h3>Read</h3>
-          <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href='/users/read'">View all</a>
+          <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href=`/users/?id=${user_id}&shelf=1`">View all</a>
         </div>
         <div class="row read-books"></div>
 
@@ -122,7 +122,6 @@
         }
         function display_currently_reading() {
             const card_container = document.querySelector('.currently-reading-books');
-            //falta agarrar el user id creo 
             const shelf_id = 3;
 
 
@@ -176,7 +175,6 @@
 
         function display_toread() {
             const card_container = document.querySelector('.toread-books');
-            //falta agarrar el user id creo 
             const shelf_id = 2;
 
 
@@ -230,7 +228,6 @@
 
         function display_read() {
             const card_container = document.querySelector('.read-books');
-            //falta agarrar el user id creo 
             const shelf_id = 1;
 
 
@@ -288,17 +285,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const user_id = urlParams.get('id');
         
-
-        if (user_id) {
-            document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
-            document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
-            document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
-            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
-        }
 
     </script>
 </body>
