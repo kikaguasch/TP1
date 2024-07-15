@@ -84,14 +84,12 @@
             const shelf_id = 2;
 
 
-            fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
+            fetch(`http://localhost:5000/users/${id}/shelves/${shelf_id}`)
                 .then(response => response.json())
                 .then(books => {card_Container.innerHTML = '';
 
-                if (books.length > 0) {
-                    for (let index = 0; index < books.length; index++) {
-                        const book = books[index];
-
+                if (shelf.books.length > 0) {
+                    shelf.books.forEach(book => {
                         const item = document.createElement('div');
                         item.setAttribute("class", "col-md-3 mb-3");
 
@@ -111,14 +109,14 @@
 
                         const author = document.createElement('p');
                         author.setAttribute("class", "card-text");
-                        author.textContent = `by ${book.author}`;
+                        author.textContent = `by ${book.author_name}`;
 
                         card_body.append(title, author);
                         card.append(image, card_body);
 
-                        card_container.append(card);
+                        card_container.append(item);
                         
-                    }
+                    });
                 } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
@@ -129,10 +127,10 @@
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
         }
-        
+        document.addEventListener('DOMcontentLoaded', (event) =>{
+
         const urlParams = new URLSearchParams(window.location.search);
         const user_id = urlParams.get('id');
-        const selectedShelf = urlParams.get('shelf');
 
         if (user_id) {
             document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
@@ -142,24 +140,8 @@
             document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
 
         }
-        if (selectedShelf) {
-            document.getElementById('currently-reading-section').style.display = 'none';
-            document.getElementById('toread-section').style.display = 'none';
-            document.getElementById('read-section').style.display = 'none';
-
-            // if (selectedShelf === '1') {
-            //     document.getElementById('read-section').style.display = 'block';
-            //     display_read();
-            } else if (selectedShelf === '2') {
-                document.getElementById('toread-section').style.display = 'block';
-                display_toread();
-            // } else if (selectedShelf === '3') {
-            //     document.getElementById('currently-reading-section').style.display = 'block';
-            //     display_currently_reading();
-            // }
-        } else {
             display_toread();
-        }
+        });
     </script>
 </body>
 </html>
