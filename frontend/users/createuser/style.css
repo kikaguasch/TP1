@@ -1,0 +1,28 @@
+*{
+    font-family: 'Nunito', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #FFFFF0 !important; 
+    font-family: 'Nunito', sans-serif;
+}
+
+form {
+    width: 50%;
+    background-color: #D0DEEB;
+    padding: 45px;
+    border-radius: 15px;
+    margin-top: 4vh;
+    
+
+}
+
+.btn-secondary{
+    width: 100%;
+    border-radius: 50px;
+
+
+}
