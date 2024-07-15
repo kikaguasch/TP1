@@ -140,29 +140,25 @@
             document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
             document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
             document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
-            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+
         }
         if (selectedShelf) {
             document.getElementById('currently-reading-section').style.display = 'none';
             document.getElementById('toread-section').style.display = 'none';
             document.getElementById('read-section').style.display = 'none';
 
-            if (selectedShelf === '1') {
-                document.getElementById('read-section').style.display = 'block';
-                display_read();
+            // if (selectedShelf === '1') {
+            //     document.getElementById('read-section').style.display = 'block';
+            //     display_read();
             } else if (selectedShelf === '2') {
                 document.getElementById('toread-section').style.display = 'block';
                 display_toread();
-            } else if (selectedShelf === '3') {
-                document.getElementById('currently-reading-section').style.display = 'block';
-                display_currently_reading();
-            }
+            // } else if (selectedShelf === '3') {
+            //     document.getElementById('currently-reading-section').style.display = 'block';
+            //     display_currently_reading();
+            // }
         } else {
-            display_currently_reading();
             display_toread();
-            display_read();
         }
     </script>
 </body>
