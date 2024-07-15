@@ -56,7 +56,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', (event) =>{
         function response_received(response) {
             return response.json();
         }
@@ -64,7 +63,7 @@
         function parse_user_data(content) {
             console.log("I have the list of users!");
             const container = document.getElementById("users");
-            container.innerText = content.name
+            container.textContent= content.name
         }
         
         function request_error(error) {
@@ -81,6 +80,7 @@
 
         function display_toread() {
             const card_container = document.getElementById('toread-books');
+            console.log("I have the list of books!");
             const shelf_id = 2;
 
 
@@ -121,7 +121,7 @@
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
                     noBooksMessage.textContent = 'No books found for this shelf.';
-                    cardContainer.appendChild(noBooksMessage);
+                    card_container.appendChild(noBooksMessage);
                 }
                 })
                 .catch(error => {console.error("Error fetching or displaying books:", error);
@@ -141,7 +141,6 @@
 
         }
             display_toread();
-    });
     </script>
 </body>
 </html>

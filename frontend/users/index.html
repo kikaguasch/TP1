@@ -135,10 +135,10 @@
                                 card.setAttribute("style", "width: 200px; height: 200px;");
                                 card.setAttribute("href", `users/?id=${user_id}&book_id=${book.id}`)
 
-                                const image = document.createElement('img');
-                                image.setAttribute("class", "card-img-top");
-                                image.setAttribute("style", "width: 100px; height: 100px;");
-                                image.setAttribute('src', book.cover_url);
+                                const cover = document.createElement('img');
+                                cover.setAttribute("class", "card-img-top");
+                                cover.setAttribute("style", "width: 100px; height: 100px;");
+                                cover.setAttribute('src', book.cover_url);
 
                                 const card_body = document.createElement('div');
                                 card_body.setAttribute("class", "card-body");
@@ -152,7 +152,7 @@
                                 author_name.textContent = `by ${book.author_name}`;
 
                                 card_body.append(title, author_name);
-                                card.append(image, card_body);
+                                card.append(cover, card_body);
                                 card_container.append(card);
                             });
                         } else {
