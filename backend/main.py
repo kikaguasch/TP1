@@ -131,10 +131,13 @@ def new_book(user_id, shelf_id):
         db.session.add(new_book)
         db.session.commit()
 
-        return jsonify({'message': 'Book created successfully'}), 201
+        # return jsonify({'message': 'Book created successfully'}), 201
+        return jsonify({'success': True, 'title': new_book.title }), 201
     except Exception as error:
         print(f"Error: {error}")
-        return jsonify({'message': 'Book could not be created'}), 400
+        # return jsonify({'message': 'Book could not be created'}), 400
+        return jsonify({'success': False, 'message': str(error)}), 400
+
 
 #update book details
 @app.route("/users/<user_id>/shelves/<shelf_id>/<book_id>", methods=['PUT'])
