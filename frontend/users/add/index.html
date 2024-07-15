@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add book</title>
-    <link rel="stylesheet" href="/frontend/users/add/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -65,18 +65,19 @@
         <input type="number" name="pages" class="form-control" id="pages" placeholder="Pages" required>
       </div>
       <div>
-        <label for="Shelf" class="form-label">Add to Shelf *</label>
+        <label for="shelf" class="form-label">Add to Shelf *</label>
         <div class="dropdown">
-            <button name="shelf" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button id="shelfDropdown" name="shelf" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Shelf
             </button>
             <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Currently</a></li>
-            <li><a class="dropdown-item" href="#">To-read</a></li>
-            <li><a class="dropdown-item" href="#">Read</a></li>
+            <li><a class="dropdown-item" href="#" onclick="selectShelf(event, 'Currently')">Currently</a></li>
+            <li><a class="dropdown-item" href="#" onclick="selectShelf(event, 'To-read')">To-read</a></li>
+            <li><a class="dropdown-item" href="#" onclick="selectShelf(event, 'Read')">Read</a></li>
             </ul>
         </div>
       </div>
+      <input type="hidden" id="shelfValue" name="shelf">
 
       <div class="mb-3 mt-4">
         <label for="date" class="form-label">Date Added *</label>
@@ -116,7 +117,14 @@
                 alert("Error")
             }
         }
-
+    
+        function selectShelf(event, shelfName) {
+        event.preventDefault();
+        const shelfDropdown = document.getElementById('shelfDropdown');
+        const shelfValue = document.getElementById('shelfValue');
+        shelfDropdown.textContent = shelfName;
+        shelfValue.value = shelfName;
+    }
         function add_book(event) {
             event.preventDefault()
 
@@ -129,7 +137,10 @@
             const date_added = formData.get("date_added")
             const image = formData.get("image")
 
-            fetch("http://localhost:5000/", {
+          const user_id = new URLSearchParams(window.location.search).get("id");
+
+
+            fetch("http://localhost:5000/users/${user_id}/books", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -148,13 +159,13 @@
                 .catch((error) => console.log("ERROR", error))
         }
 
-      let parametros = window.location.search;
-      let id = new URLSearchParams(parametros).get("id");
+      // let parametros = window.location.search;
+      // let id = new URLSearchParams(parametros).get("id");
 
-      fetch("http://localhost:5000/users"+id)
-            .then(response_received)
-            .then(parse_user_data)
-            .catch(request_error) 
+      // fetch("http://localhost:5000/users"+id)
+      //       .then(response_received)
+      //       .then(parse_user_data)
+      //       .catch(request_error) 
   </script>
 </body>
 

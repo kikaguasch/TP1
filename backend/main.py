@@ -30,7 +30,6 @@ def users():
                 'id': user.id,
                 'name': user.name,
                 'age': user.age,
-                'favourite_genre': user.favourite_genre
             }
             users_data.append(user_data)
         return jsonify(users_data)
@@ -41,13 +40,10 @@ def users():
 @app.route("/users/", methods=['POST'])
 def new_user():
     try:
-        user = User()
         data = request.json
-        user.name = data.get('name')
-        user.age = data.get('age')
-        user.favourite_genre = data.get('favourite_genre')
-        new_shelf = User(name=user.name, age=user.age, favourite_genre=user.favourite_genre)
-        db.session.add(new_shelf)
+        user = User(name = data.get('name'), age = data.get('age'))
+        # new_shelf = User(name=user.name, age=user.age)
+        db.session.add(user)
         db.session.commit()
 
         return jsonify({'message': 'User created'}), 201 #creado
@@ -65,7 +61,6 @@ def user(user_id):
             'id': user.id,
             'name': user.name,
             'age': user.age,
-            'favourite_genre': user.favourite_genre
         }
         return jsonify(user_data)
     except:

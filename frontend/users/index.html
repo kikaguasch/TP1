@@ -26,13 +26,13 @@
                         <a class="nav-link" onclick="window.location.href='/users'">Home</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/toread'">To-read</a>
+                        <a id="to-read-link" class="nav-link">To-read</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/read'">Read</a>
+                        <a id="read-link" class="nav-link">Read</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/currently'">Currently</a>
+                        <a id="currently-link" class="nav-link">Currently</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" onclick="window.location.href='/users/add'">Add book</a>
@@ -48,7 +48,7 @@
     </header>
 
     <div class="container-fluid m-5">
-        <h1 class="h1 mb-4">Welcome <span id="users"></span>!</h1>
+        <h1 class="h1 mb-4">Welcome!</h1>
     </div>
 
     <div class="container-fluid m-5">
@@ -69,7 +69,7 @@
           <h3>To-read</h3>
           <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mt-2 m-5 p-2" onclick="window.location.href='/users/toread'">View all</a>
         </div>
-        <div class="row to-read-books"></div>
+        <div class="row toread-books"></div>
 
         <div class="container">
             <hr class="my-5">
@@ -121,31 +121,32 @@
                 .then(data => data.books)
         }
         function display_currently_reading() {
-            const card_container = document.getElementById('.currently-reading-books');
+            const card_container = document.querySelector('.currently-reading-books');
             //falta agarrar el user id creo 
             const shelf_id = 3;
 
 
             fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
                 .then(response => response.json())
-                .then(books => {card_Container.innerHTML = '';
+                .then(shelf => {card_container.innerHTML = '';
 
-                if (books.length > 0) {
-                    for (let index = 0; index < books.length; index++) {
-                        const book = books[index];
-
+                if (shelf.books.length > 0) {
+                    shelf.books.forEach(book => {
                         const item = document.createElement('div');
                         item.setAttribute("class", "col-md-3 mb-3");
 
                         const card = document.createElement('a');
                         card.setAttribute("class", "card text-decoration-none");
+                        card.setAttribute("style", "width: 200px", "height", "200px");
+
 
                         const image = document.createElement('img');
                         image.setAttribute("class", "card-img-top");
+                        image.setAttribute("style", "width: 100px", "height: 100px", "display: inline-block");
                         image.setAttribute('src', book.cover_url); 
 
                         const card_body = document.createElement('div');
-                        cardBody.setAttribute("class", "card-body");
+                        card_body.setAttribute("class", "card-body");
 
                         const title = document.createElement('h5');
                         title.setAttribute("class", "card-title");
@@ -160,7 +161,7 @@
 
                         card_container.append(card);
                         
-                    }
+                    });
                 } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
@@ -170,34 +171,37 @@
                 })
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
+
         }
 
         function display_toread() {
-            const card_container = document.getElementById('.toread-books');
+            const card_container = document.querySelector('.toread-books');
             //falta agarrar el user id creo 
             const shelf_id = 2;
 
 
             fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
                 .then(response => response.json())
-                .then(books => {card_Container.innerHTML = '';
+                .then(shelf => {card_container.innerHTML = '';
 
-                if (books.length > 0) {
-                    for (let index = 0; index < books.length; index++) {
-                        const book = books[index];
+                if (shelf.books.length > 0) {
+                    shelf.books.forEach(book => {
 
                         const item = document.createElement('div');
                         item.setAttribute("class", "col-md-3 mb-3");
 
                         const card = document.createElement('a');
                         card.setAttribute("class", "card text-decoration-none");
+                        card.setAttribute("style", "width: 200px", "height", "200px");
+
 
                         const image = document.createElement('img');
                         image.setAttribute("class", "card-img-top");
+                        image.setAttribute("style", "width: 100px", "height", "100px");
                         image.setAttribute('src', book.cover_url); 
 
                         const card_body = document.createElement('div');
-                        cardBody.setAttribute("class", "card-body");
+                        card_body.setAttribute("class", "card-body");
 
                         const title = document.createElement('h5');
                         title.setAttribute("class", "card-title");
@@ -212,7 +216,7 @@
 
                         card_container.append(card);
                         
-                    }
+                    });
                 } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
@@ -225,31 +229,33 @@
         }
 
         function display_read() {
-            const card_container = document.getElementById('.read-books');
+            const card_container = document.querySelector('.read-books');
             //falta agarrar el user id creo 
             const shelf_id = 1;
 
 
             fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
                 .then(response => response.json())
-                .then(books => {card_Container.innerHTML = '';
+                .then(shelf => {card_container.innerHTML = '';
 
-                if (books.length > 0) {
-                    for (let index = 0; index < books.length; index++) {
-                        const book = books[index];
+                if (shelf.books.length > 0) {
+                    shelf.books.forEach(book => {
 
                         const item = document.createElement('div');
                         item.setAttribute("class", "col-md-3 mb-3");
 
                         const card = document.createElement('a');
                         card.setAttribute("class", "card text-decoration-none");
+                        card.setAttribute("style", "width: 200px", "height", "200px");
 
                         const image = document.createElement('img');
                         image.setAttribute("class", "card-img-top");
+                        image.setAttribute("style", "width: 100px", "height", "100px");
                         image.setAttribute('src', book.cover_url); 
 
                         const card_body = document.createElement('div');
-                        cardBody.setAttribute("class", "card-body");
+                        card_body.setAttribute("class", "card-body");
+                        // card_body.setAttribute("style", "width: 100px", "height", "100px");
 
                         const title = document.createElement('h5');
                         title.setAttribute("class", "card-title");
@@ -264,7 +270,7 @@
 
                         card_container.append(card);
                         
-                    }
+                    });
                 } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
@@ -275,7 +281,18 @@
                 .catch(error => {console.error("Error fetching or displaying books:", error);
             });
         }
+        display_currently_reading();
+        display_toread();
+        display_read();
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const user_id = urlParams.get('id');
+
+        if (user_id) {
+            document.getElementById('to-read-link').setAttribute('href', `/users/${user_id}/shelves/2`);
+            document.getElementById('read-link').setAttribute('href', `/users/${user_id}/shelves/1`);
+            document.getElementById('currently-link').setAttribute('href', `/users/${user_id}/shelves/3`);
+        }
     </script>
 </body>
 </html>
