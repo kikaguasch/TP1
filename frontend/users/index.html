@@ -58,7 +58,7 @@
         <div class="row currently-reading-books"></div>
 
         <div class="container">
-            <hr class="my-5">
+            <hr class="my-5 mx-5">
         </div>
         
     </div>
@@ -131,13 +131,13 @@
                                 item.setAttribute("class", "col-md-3 mb-3");
 
                                 const card = document.createElement('a');
-                                card.setAttribute("class", "card text-decoration-none");
-                                card.setAttribute("style", "width: 200px; height: 200px;");
+                                card.setAttribute("class", "mx-2 card text-decoration-none align-items-center");
+                                card.setAttribute("style", "width: 250px; height: 350px;");
                                 card.setAttribute("href", `users/?id=${user_id}&book_id=${book.id}`)
 
                                 const cover = document.createElement('img');
-                                cover.setAttribute("class", "card-img-top");
-                                cover.setAttribute("style", "width: 100px; height: 100px;");
+                                cover.setAttribute("class", "card-img-top center-block mt-2 ");
+                                cover.setAttribute("style", "width: 150px; height: 200px;");
                                 cover.setAttribute('src', book.cover_url);
 
                                 const card_body = document.createElement('div');
