@@ -22,28 +22,32 @@
         <nav class="ml-auto">
             <ul class="nav nav-underline">
                 <li class="nav-item mx-3">
-                    <a class="nav-link" href="http://localhost:8000/users">Home</a>
+                    <a class="nav-link" onclick="window.location.href='/'">Users</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" href="#">To-read</a>
+                    <a class="nav-link" onclick="window.location.href='/users'">Home</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" href="#">Read</a>
+                    <a class="nav-link" onclick="window.location.href='/users/toread'">To-read</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" href="#">Currently</a>
+                    <a class="nav-link" onclick="window.location.href='/users/read'">Read</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" href="#">Add book</a>
+                    <a class="nav-link" onclick="window.location.href='/users/currently'">Currently</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link" onclick="window.location.href='/users/add'">Add book</a>
                 </li>
             </ul>
         </nav>
         <div class="d-flex align-items-center mx-4">
             <i class="bi bi-person-fill"></i>
-            <h4 class="m-2" id="name_user">User</h4>            
+            <h4 class="m-2" id="name_user"></h4>            
         </div>
     </div>
-  </header>
+
+</header>
 
   <div class="container-fluid">
     <form class="mx-auto" onsubmit="add_book(event)">
@@ -125,7 +129,6 @@
             const pages = formData.get("pages")
             const shelf = formData.get("shelf")
             const date_added = formData.get("date_added")
-            const finished_date = formData.get("finished_date")
             const image = formData.get("image")
 
             fetch("http://localhost:5000/", {
