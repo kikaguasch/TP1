@@ -14,7 +14,7 @@
     <header class="navbar header-nav navbar-expand">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <img class="logo" src="img/LOGO.webp" alt="logo" width="100" height="100">
+                <img class="logo" src="img/LOGO.webp" alt="logo">
                 <h3 class="mb-0">Bookly</h3>
             </div>
             <nav class="ml-auto">
@@ -23,25 +23,25 @@
                         <a class="nav-link" onclick="window.location.href='/'">Users</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users'">Home</a>
+                        <a id="home-link" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/toread'">To-read</a>
+                        <a id="to-read-link" class="nav-link">To-read</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/read'">Read</a>
+                        <a id="read-link" class="nav-link">Read</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/currently'">Currently</a>
+                        <a id="currently-link" class="nav-link">Currently</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/add'">Add book</a>
+                        <a id="add-book-link" class="nav-link">Add book</a>
                     </li>
                 </ul>
             </nav>
             <div class="d-flex align-items-center mx-4">
                 <i class="bi bi-person-fill"></i>
-                <h4 class="m-2" id="name_user"></h4>            
+                <h4 class="m-2" id="users"></h4>            
             </div>
         </div>
 
@@ -131,7 +131,19 @@
             });
         }
 
-        
+        const urlParams = new URLSearchParams(window.location.search);
+        const user_id = urlParams.get('id');
+
+        if (user_id) {
+            document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
+            document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+            document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
+            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+        }
         
     </script>
 </body>

@@ -23,7 +23,7 @@
                         <a class="nav-link" onclick="window.location.href='/'">Users</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users'">Home</a>
+                        <a id="home-link" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a id="to-read-link" class="nav-link">To-read</a>
@@ -35,7 +35,7 @@
                         <a id="currently-link" class="nav-link">Currently</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" onclick="window.location.href='/users/add'">Add book</a>
+                        <a id="add-book-link" class="nav-link">Add book</a>
                     </li>
                 </ul>
             </nav>
@@ -152,11 +152,11 @@
                         title.setAttribute("class", "card-title");
                         title.textContent = book.title;
 
-                        const author = document.createElement('p');
-                        author.setAttribute("class", "card-text");
-                        author.textContent = `by ${book.author}`;
+                        const author_name = document.createElement('p');
+                        author_name.setAttribute("class", "card-text");
+                        author_name.textContent = `by ${book.author_name}`;
 
-                        card_body.append(title, author);
+                        card_body.append(title, author_name);
                         card.append(image, card_body);
 
                         card_container.append(card);
@@ -207,11 +207,11 @@
                         title.setAttribute("class", "card-title");
                         title.textContent = book.title;
 
-                        const author = document.createElement('p');
-                        author.setAttribute("class", "card-text");
-                        author.textContent = `by ${book.author}`;
+                        const author_name = document.createElement('p');
+                        author_name.setAttribute("class", "card-text");
+                        author_name.textContent = `by ${book.author_name}`;
 
-                        card_body.append(title, author);
+                        card_body.append(title, author_name);
                         card.append(image, card_body);
 
                         card_container.append(card);
@@ -261,11 +261,11 @@
                         title.setAttribute("class", "card-title");
                         title.textContent = book.title;
 
-                        const author = document.createElement('p');
-                        author.setAttribute("class", "card-text");
-                        author.textContent = `by ${book.author}`;
+                        const author_name = document.createElement('p');
+                        author_name.setAttribute("class", "card-text");
+                        author_name.textContent = `by ${book.author_name}`;
 
-                        card_body.append(title, author);
+                        card_body.append(title, author_name);
                         card.append(image, card_body);
 
                         card_container.append(card);
@@ -289,10 +289,16 @@
         const user_id = urlParams.get('id');
 
         if (user_id) {
-            document.getElementById('to-read-link').setAttribute('href', `/users/${user_id}/shelves/2`);
-            document.getElementById('read-link').setAttribute('href', `/users/${user_id}/shelves/1`);
-            document.getElementById('currently-link').setAttribute('href', `/users/${user_id}/shelves/3`);
+            document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
+            document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+            document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
+            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
         }
+
     </script>
 </body>
 </html>

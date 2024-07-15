@@ -16,7 +16,7 @@
   <header class="navbar header-nav navbar-expand">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-            <img class="logo" src="img/LOGO.webp" alt="logo" width="100" height="100">
+            <img class="logo" src="img/LOGO.webp" alt="logo">
             <h3 class="mb-0">Bookly</h3>
         </div>
         <nav class="ml-auto">
@@ -25,19 +25,19 @@
                     <a class="nav-link" onclick="window.location.href='/'">Users</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" onclick="window.location.href='/users'">Home</a>
+                    <a id="home-link" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" onclick="window.location.href='/users/toread'">To-read</a>
+                    <a id="to-read-link" class="nav-link">To-read</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" onclick="window.location.href='/users/read'">Read</a>
+                    <a id="read-link" class="nav-link">Read</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" onclick="window.location.href='/users/currently'">Currently</a>
+                    <a id="currently-link" class="nav-link">Currently</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" onclick="window.location.href='/users/add'">Add book</a>
+                    <a id="add-book-link" class="nav-link">Add book</a>
                 </li>
             </ul>
         </nav>
@@ -140,7 +140,7 @@
           const user_id = new URLSearchParams(window.location.search).get("id");
 
 
-            fetch("http://localhost:5000/users/${user_id}/books", {
+            fetch("http://localhost:5000/users/${user_id}/sehlves/${shelf_id}/books", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -159,13 +159,20 @@
                 .catch((error) => console.log("ERROR", error))
         }
 
-      // let parametros = window.location.search;
-      // let id = new URLSearchParams(parametros).get("id");
 
-      // fetch("http://localhost:5000/users"+id)
-      //       .then(response_received)
-      //       .then(parse_user_data)
-      //       .catch(request_error) 
+        const urlParams = new URLSearchParams(window.location.search);
+        const user_id = urlParams.get('id');
+
+        if (user_id) {
+            document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
+            document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+            document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
+            document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+            document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+            document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+        }
   </script>
 </body>
 

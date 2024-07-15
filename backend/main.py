@@ -99,7 +99,7 @@ def user_specific_shelves(user_id, shelf_id):
         return jsonify({'message': 'No shelves available'}), 404   
 
 #create new book
-@app.route("/users/<user_id>/books", methods=['POST'])
+@app.route("/users/<user_id>/shelves/<shelf_id>/books", methods=['POST'])
 def new_book(user_id, shelf_id):
     try:
         data = request.json
