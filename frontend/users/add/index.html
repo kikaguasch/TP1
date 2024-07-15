@@ -99,6 +99,28 @@
             'To-read': 2,
             'Read': 1
         };
+    
+      function response_received(response) {
+          return response.json();
+      }
+
+      function parse_user_data(content) {
+          console.log("I have the list of users!");
+          const container = document.getElementById("users");
+          container.innerText = content.name
+      }
+
+      function request_error(error) {
+          console.log("ERROR");
+          console.log(error);
+      }
+      let parametros = window.location.search;
+      let id = new URLSearchParams(parametros).get("id")
+
+      fetch(`http://localhost:5000/users/${id}`)
+          .then(response_received)
+          .then(parse_user_data)
+          .catch(request_error);
 
     function response_data(response){
       if (!response.ok) {
