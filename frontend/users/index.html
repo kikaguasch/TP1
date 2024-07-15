@@ -133,7 +133,6 @@
                                 const card = document.createElement('a');
                                 card.setAttribute("class", "card text-decoration-none");
                                 card.setAttribute("style", "width: 200px; height: 200px;");
-                                card.setAttribute("href", `users/?id=${user_id}&book_id=${book.id}`)
 
                                 const cover = document.createElement('img');
                                 cover.setAttribute("class", "card-img-top");
@@ -150,6 +149,10 @@
                                 const author_name = document.createElement('p');
                                 author_name.setAttribute("class", "card-text");
                                 author_name.textContent = `by ${book.author_name}`;
+
+                                const btn = document.createElement('btn');
+                                btn.setAttribute ("class", "btn btn-danger");
+                                btn.textContent = "Remove"
 
                                 card_body.append(title, author_name);
                                 card.append(cover, card_body);
