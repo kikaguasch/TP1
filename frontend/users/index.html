@@ -95,113 +95,52 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
 
-        function response_received(response) {
-            return response.json();
-        }
-        
-        function parse_user_data(content) {
-            console.log("I have the list of users!");
-            const container = document.getElementById("users");
-            container.innerText = content.name
-        }
-        
-        function request_error(error) {
-            console.log("ERROR");
-            console.log(error);
-        }
-        let parametros = window.location.search;
-        let id = new URLSearchParams(parametros).get("id")
+function response_received(response) {
+    return response.json();
+}
 
-        fetch(`http://localhost:5000/users/${id}`)
-            .then(response_received)
-            .then(parse_user_data)
-            .catch(request_error);
-        
-        function fetchBooks(user_id, shelf_id){
-            return fetch(`http://localhost:5000/users/${id}/shelves/${shelf_id}`)
-                .then(response => response.json())
-                .then(data => data.books)
-        }
-        function display_books(selector, shelf_id) {
-                const card_container = document.querySelector(selector);
-                fetch(`http://localhost:5000/users/${id}/shelves/${shelf_id}`)
-                    .then(response => response.json())
-                    .then(shelf => {
-                        card_container.innerHTML = '';
-                        if (shelf.books.length > 0) {
-                            shelf.books.forEach(book => {
-                                const item = document.createElement('div');
-                                item.setAttribute("class", "col-md-3 mb-3");
+function parse_user_data(content) {
+    console.log("I have the list of users!");
+    const container = document.getElementById("users");
+    container.innerText = content.name
+}
 
-                                const card = document.createElement('a');
-                                card.setAttribute("class", "card text-decoration-none");
-                                card.setAttribute("style", "width: 200px; height: 200px;");
+function request_error(error) {
+    console.log("ERROR");
+    console.log(error);
+}
+let parametros = window.location.search;
+let id = new URLSearchParams(parametros).get("id")
 
-                                const image = document.createElement('img');
-                                image.setAttribute("class", "card-img-top");
-                                image.setAttribute("style", "width: 100px; height: 100px;");
-                                image.setAttribute('src', book.cover_url);
+fetch(`http://localhost:5000/users/${id}`)
+    .then(response_received)
+    .then(parse_user_data)
+    .catch(request_error);
 
-                                const card_body = document.createElement('div');
-                                card_body.setAttribute("class", "card-body");
-
-                                const title = document.createElement('h5');
-                                title.setAttribute("class", "card-title");
-                                title.textContent = book.title;
-
-                                const author_name = document.createElement('p');
-                                author_name.setAttribute("class", "card-text");
-                                author_name.textContent = `by ${book.author_name}`;
-
-                                card_body.append(title, author_name);
-                                card.append(image, card_body);
-                                card_container.append(card);
-                            });
-                        } else {
-                            const noBooksMessage = document.createElement('p');
-                            noBooksMessage.classList.add('text-muted');
-                            noBooksMessage.textContent = 'No books found for this shelf.';
-                            card_container.appendChild(noBooksMessage);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching or displaying books:", error);
-                    });
-            }
-
-            function display_currently_reading() {
-                display_books('.currently-reading-books', 3);
-            }
-
-            function display_toread() {
-                display_books('.toread-books', 2);
-            }
-
-            function display_read() {
-                display_books('.read-books', 1);
-            }
-
-<<<<<<< HEAD
-            fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
-                .then(response => response.json())
-                .then(shelf => {card_container.innerHTML = '';
-
+function fetchBooks(user_id, shelf_id){
+    return fetch(`http://localhost:5000/users/${id}/shelves/${shelf_id}`)
+        .then(response => response.json())
+        .then(data => data.books)
+}
+function display_books(selector, shelf_id) {
+        const card_container = document.querySelector(selector);
+        fetch(`http://localhost:5000/users/${id}/shelves/${shelf_id}`)
+            .then(response => response.json())
+            .then(shelf => {
+                card_container.innerHTML = '';
                 if (shelf.books.length > 0) {
                     shelf.books.forEach(book => {
-
                         const item = document.createElement('div');
                         item.setAttribute("class", "col-md-3 mb-3");
 
                         const card = document.createElement('a');
                         card.setAttribute("class", "card text-decoration-none");
-                        card.setAttribute("style", "width: 200px", "height", "200px");
-                        card.setAttribute("href", `users/?id=${user_id}/books/?id=${content[index].id}`)
-
+                        card.setAttribute("style", "width: 200px; height: 200px;");
 
                         const image = document.createElement('img');
                         image.setAttribute("class", "card-img-top");
-                        image.setAttribute("style", "width: 100px", "height", "100px");
-                        image.setAttribute('src', book.cover_url); 
+                        image.setAttribute("style", "width: 100px; height: 100px;");
+                        image.setAttribute('src', book.cover_url);
 
                         const card_body = document.createElement('div');
                         card_body.setAttribute("class", "card-body");
@@ -216,110 +155,67 @@
 
                         card_body.append(title, author_name);
                         card.append(image, card_body);
-
                         card_container.append(card);
-                        
                     });
                 } else {
                     const noBooksMessage = document.createElement('p');
                     noBooksMessage.classList.add('text-muted');
                     noBooksMessage.textContent = 'No books found for this shelf.';
-                    cardContainer.appendChild(noBooksMessage);
+                    card_container.appendChild(noBooksMessage);
                 }
-                })
-                .catch(error => {console.error("Error fetching or displaying books:", error);
+            })
+            .catch(error => {
+                console.error("Error fetching or displaying books:", error);
             });
-        }
+    }
 
-        function display_read() {
-            const card_container = document.querySelector('.read-books');
-            const shelf_id = 1;
+    function display_currently_reading() {
+        display_books('.currently-reading-books', 3);
+    }
 
+    function display_toread() {
+        display_books('.toread-books', 2);
+    }
 
-            fetch("http://localhost:5000/users/"+id+`/shelves/${shelf_id}`)
-                .then(response => response.json())
-                .then(shelf => {card_container.innerHTML = '';
+    function display_read() {
+        display_books('.read-books', 1);
+    }
 
-                if (shelf.books.length > 0) {
-                    shelf.books.forEach(book => {
+const urlParams = new URLSearchParams(window.location.search);
+const user_id = urlParams.get('id');
+const selectedShelf = urlParams.get('shelf');
 
-                        const item = document.createElement('div');
-                        item.setAttribute("class", "col-md-3 mb-3");
+if (user_id) {
+    document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
+    document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+    document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+    document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+    document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
+    // document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
+    // document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
+    // document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
+}
+if (selectedShelf) {
+    document.getElementById('currently-reading-section').style.display = 'none';
+    document.getElementById('toread-section').style.display = 'none';
+    document.getElementById('read-section').style.display = 'none';
 
-                        const card = document.createElement('a');
-                        card.setAttribute("class", "card text-decoration-none");
-                        card.setAttribute("style", "width: 200px", "height", "200px");
-
-                        const image = document.createElement('img');
-                        image.setAttribute("class", "card-img-top");
-                        image.setAttribute("style", "width: 100px", "height", "100px");
-                        image.setAttribute('src', book.cover_url); 
-
-                        const card_body = document.createElement('div');
-                        card_body.setAttribute("class", "card-body");
-                        // card_body.setAttribute("style", "width: 100px", "height", "100px");
-
-                        const title = document.createElement('h5');
-                        title.setAttribute("class", "card-title");
-                        title.textContent = book.title;
-
-                        const author_name = document.createElement('p');
-                        author_name.setAttribute("class", "card-text");
-                        author_name.textContent = `by ${book.author_name}`;
-
-                        card_body.append(title, author_name);
-                        card.append(image, card_body);
-
-                        card_container.append(card);
-                        
-                    });
-                } else {
-                    const noBooksMessage = document.createElement('p');
-                    noBooksMessage.classList.add('text-muted');
-                    noBooksMessage.textContent = 'No books found for this shelf.';
-                    cardContainer.appendChild(noBooksMessage);
-                }
-                })
-                .catch(error => {console.error("Error fetching or displaying books:", error);
-            });
-        }
-=======
->>>>>>> ea1dd30808fd4e664c63eac466c76e56b533e0ea
-        const urlParams = new URLSearchParams(window.location.search);
-        const user_id = urlParams.get('id');
-        const selectedShelf = urlParams.get('shelf');
-
-        if (user_id) {
-            document.getElementById('home-link').setAttribute('href', `/users/?id=${user_id}`);
-            document.getElementById('to-read-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            document.getElementById('read-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
-            document.getElementById('currently-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            document.getElementById('add-book-link').setAttribute('href', `/users/add/?id=${user_id}`);
-            // document.getElementById('currently-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=3`);
-            // document.getElementById('to-read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=2`);
-            // document.getElementById('read-view-all-link').setAttribute('href', `/users/?id=${user_id}&shelf=1`);
-        }
-        if (selectedShelf) {
-            document.getElementById('currently-reading-section').style.display = 'none';
-            document.getElementById('toread-section').style.display = 'none';
-            document.getElementById('read-section').style.display = 'none';
-
-            if (selectedShelf === '1') {
-                document.getElementById('read-section').style.display = 'block';
-                display_read();
-            } else if (selectedShelf === '2') {
-                document.getElementById('toread-section').style.display = 'block';
-                display_toread();
-            } else if (selectedShelf === '3') {
-                document.getElementById('currently-reading-section').style.display = 'block';
-                display_currently_reading();
-            }
-        } else {
-            display_currently_reading();
-            display_toread();
-            display_read();
-        }
-    });
+    if (selectedShelf === '1') {
+        document.getElementById('read-section').style.display = 'block';
+        display_read();
+    } else if (selectedShelf === '2') {
+        document.getElementById('toread-section').style.display = 'block';
+        display_toread();
+    } else if (selectedShelf === '3') {
+        document.getElementById('currently-reading-section').style.display = 'block';
+        display_currently_reading();
+    }
+} else {
+    display_currently_reading();
+    display_toread();
+    display_read();
+}
+});
     </script>
 </body>
 </html>
