@@ -182,7 +182,7 @@ def delete_book(user_id, shelf_id, book_id):
         return jsonify({'message':'Book could not be deleted'}), 400
 
 #move book between shelves
-@app.route("/users/<user_id>/shelves/<shelf_id>/<book_id>/move", methods=['PUT'])
+@app.route("/users/<user_id>/shelves/<shelf_id>/<book_id>", methods=['PUT'])
 def move_book(user_id, shelf_id, book_id):
     try:
         book = Book.query.get(book_id)
